@@ -1,0 +1,78 @@
+{% extends 'employee/employee_base.html' %}
+
+{% block section_one %}
+<h1 id="detailheader"> {{  car.brand }} {{ car.car_model }} </h1>
+<section class="car_view">
+    <section class="car_table">
+        <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+        <h2>Klient</h2>
+        <tr>
+            <td>Imię Nazwisko</td>
+            <td>{{ order.client.first_name }} {{ order.client.last_name }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ order.client.email }}</td>
+        </tr>
+        <tr>
+            <td>Numer telefonu</td>
+            <td>{{ order.client.mobile_nr }}</td>
+        </tr>
+
+        </table>
+
+        <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+            <h2>Najem</h2>
+        <tr>
+            <td>Data wynajmu</td>
+            <td>{{ order.start_date }}</td>
+        </tr>
+        <tr>
+            <td>Data zwrotu</td>
+            <td>{{ order.return_date }}</td>
+        </tr>
+        <tr>
+            <td>Koszt</td>
+            <td>{{ order.rent_cost }}</td>
+        </tr>
+        </table>
+
+        <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+            <h2>Samochód</h2>
+        <tr>
+            <td>Marka model</td>
+            <td>{{ order.car.brand }} {{ order.car.car_model }}</td>
+        </tr>
+        <tr>
+            <td>Numer rejestracyjny</td>
+            <td>{{ order.car.plate_number }}</td>
+        </tr>
+        <tr>
+            <td>Kolor</td>
+            <td>{{ order.car.color }}</td>
+        </tr>
+        <tr>
+            <td>Moc</td>
+            <td>{{ order.car.engine_power }}</td>
+        </tr>
+        <tr>
+            <td>Rodzaj skrzyni</td>
+            <td>{{ order.car.gearbox_type }}</td>
+        </tr>
+        <tr>
+
+        </table>
+
+      <br>
+    <div>
+        <form method="POST" novalidate>
+            {{ form }}
+        <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź</button>
+        {% csrf_token %}
+        </form>
+
+    </div>
+    </section>
+</section>
+<div style="height:100vh"></div>
+{% endblock %}
