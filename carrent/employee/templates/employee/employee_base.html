@@ -28,6 +28,7 @@
                 {% if request.user.is_authenticated and request.user.is_staff %}
                     <a class="nav-link px-lg-3" href="{% url 'employee_main' %}">Strona główna</a>
                     <a class="nav-link px-lg-3" href="{% url 'past_due' %}">Zaległe</a>
+                    <a class="nav-link px-lg-3" href="{% url 'car_return' %}">Zwrot samochodu</a>
                 {% else %}
                     <a class="nav-link px-lg-3" href="{% url 'login' %}">Wypożycz</a>
                 {% endif %}

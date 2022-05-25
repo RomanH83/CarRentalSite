@@ -1,12 +1,7 @@
 {% extends 'employee/employee_base.html' %}
 
 {% block section_one %}
-    {% if order.issue_resolved != None  %}
-        <h1 id="detailheader" style="text-align: center"> Oczekuje na zwrot </h1>
-    {% else %}
-        <h1 id="detailheader" style="text-align: center; color: crimson" > Skontaktuj się z klientem </h1>
-    {% endif %}
-
+    <h1 id="detailheader" style="text-align: center"> Oczekuje na zwrot </h1>
 <section class="car_view">
     <section class="car_table">
         <table class="table table-responsive table-bordered table-hover table-striped table-dark">
@@ -72,11 +67,7 @@
     <div>
 
         <form method="POST" novalidate>
-            {% if order.issue_resolved != None  %}
-                {{ form.status }}
-            {% else %}
-                {{ form.issue_resolved }}
-            {% endif %}
+            {{ form.status }}
         <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź</button>
         {% csrf_token %}
         </form>
