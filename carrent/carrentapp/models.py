@@ -80,6 +80,7 @@ class Order(models.Model):
                                   ('Aktywny', 'Aktywny'),
                                   ('Historia', 'Historia')),
                               default='Aktywny')
+    issue_resolved = models.BooleanField(verbose_name="Problem rozwiązany", null=True)
 
     class Meta:
         verbose_name = "Log Wypozyczenia"
