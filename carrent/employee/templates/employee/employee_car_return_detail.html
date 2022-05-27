@@ -67,7 +67,27 @@
     <div>
 
         <form method="POST" novalidate>
-            {{ form.status }}
+            <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+            {% if view.kwargs.msg != None  %}
+            <tr>
+                <td style="color: crimson">Błąd</td>
+                <td style="color: crimson "> {{ view.kwargs.msg }}</td>
+            </tr>
+            {% endif %}
+                 <h2>Potwierdzenie zwrotu</h2>
+                 <tr>
+                     <td>Status </td>
+                     <td>{{ form.status }}</td>
+                 </tr>
+                 <tr>
+                     <td>Poprzedni przebieg</td>
+                     <td>{{ order.car.car_mileage }}</td>
+                 </tr>
+                 <tr>
+                     <td>Nowy przebieg</td>
+                     <td>{{ form.kilometers_traveled }}</td>
+                </tr>
+        </table>
         <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź</button>
         {% csrf_token %}
         </form>
