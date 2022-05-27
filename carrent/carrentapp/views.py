@@ -91,7 +91,7 @@ class CreateOrderView(CreateView):
         return redirect('future_order')
 
 
-class OrderUptadeView(UpdateView):
+class OrderUpdateView(UpdateView):
 
     template_name = 'carrentapp/order_update.html'
     model = Order
