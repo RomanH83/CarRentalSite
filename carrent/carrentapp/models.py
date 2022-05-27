@@ -71,7 +71,7 @@ class Order(models.Model):
     rent_cost = models.IntegerField(verbose_name="Koszt wynajmu", blank=True, null=True)
     start_date = models.DateField(verbose_name="Start")
     return_date = models.DateField(verbose_name="Zwrot")
-    kilometers_traveled = models.IntegerField(verbose_name="Przejechane kilometry", null=True)
+    kilometers_traveled = models.IntegerField(verbose_name="Przejechane kilometry", default=0)
     order_datetime = models.DateTimeField(verbose_name="Powstanie zamówienia", auto_now_add=True)
     last_modified = models.DateTimeField(verbose_name="Edytowane", auto_now=True)
 

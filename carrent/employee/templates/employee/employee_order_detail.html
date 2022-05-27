@@ -73,6 +73,12 @@
 
         <form method="POST" novalidate>
         <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+            {% if view.kwargs.msg != None  %}
+            <tr>
+                <td style="color: crimson">Błąd</td>
+                <td style="color: crimson "> {{ view.kwargs.msg }}</td>
+            </tr>
+            {% endif %}
             {% if order.issue_resolved != None  %}
                  <h2>Potwierdzenie zwrotu</h2>
                  <tr>
@@ -80,22 +86,32 @@
                      <td>{{ form.status }}</td>
                  </tr>
                  <tr>
-                     <td>Przebieg Auta</td>
+                     <td>Poprzedni przebieg</td>
+                     <td>{{ order.car.car_mileage }}</td>
+                 </tr>
+                 <tr>
+                     <td>Nowy przebieg</td>
                      <td>{{ form.kilometers_traveled }}</td>
                 </tr>
+        </table>
+                <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź</button>
+                <p style="visibility: hidden">{{ form.issue_resolved }}</p>
             {% else %}
                 <h2>Status problemu</h2>
                 <tr>
                     <td>Był kontakt ?</td>
                     <td>{{ form.issue_resolved }}</td>
                 </tr>
-            {% endif %}
         </table>
+                <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź</button>
+                <p style="visibility: hidden">{{ form.status }}</p>
+                <p style="visibility: hidden">{{ form.kilometers_traveled }}</p>
+            {% endif %}
 
-        <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź</button>
+
+
         {% csrf_token %}
         </form>
-
     </div>
     </section>
 </section>
