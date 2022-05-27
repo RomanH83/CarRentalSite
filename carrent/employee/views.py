@@ -3,13 +3,14 @@ from django.views.generic import TemplateView, ListView, UpdateView
 from django.shortcuts import reverse
 
 from carrentapp.models import Order
+from employee.mixins import StaffStatusRequiredMixin
 
 
-class EmployeeHomeView(TemplateView):
+class EmployeeHomeView(StaffStatusRequiredMixin, TemplateView):
     template_name = 'employee/employee_home_page.html'
 
 
-class PastDueListView(ListView):
+class PastDueListView(StaffStatusRequiredMixin, ListView):
     model = Order
     template_name = 'employee/employee_past_due_list.html'
 
@@ -18,7 +19,7 @@ class PastDueListView(ListView):
         return orders
 
 
-class PastDueDetailView(UpdateView):
+class PastDueDetailView(StaffStatusRequiredMixin, UpdateView):
     model = Order
     fields = ['issue_resolved', 'status']
     template_name = 'employee/employee_order_detail.html'
@@ -27,7 +28,7 @@ class PastDueDetailView(UpdateView):
         return reverse('past_due')
 
 
-class CarReturnListView(ListView):
+class CarReturnListView(StaffStatusRequiredMixin, ListView):
     model = Order
     template_name = 'employee/employee_car_return.html'
 
@@ -36,7 +37,7 @@ class CarReturnListView(ListView):
         return orders
 
 
-class CarReturnDetailView(UpdateView):
+class CarReturnDetailView(StaffStatusRequiredMixin, UpdateView):
     model = Order
     fields = ['status']
     template_name = 'employee/employee_car_return_detail.html'
