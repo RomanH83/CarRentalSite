@@ -72,11 +72,26 @@
     <div>
 
         <form method="POST" novalidate>
+        <table class="table table-responsive table-bordered table-hover table-striped table-dark">
             {% if order.issue_resolved != None  %}
-                {{ form.status }}
+                 <h2>Potwierdzenie zwrotu</h2>
+                 <tr>
+                     <td>Status </td>
+                     <td>{{ form.status }}</td>
+                 </tr>
+                 <tr>
+                     <td>Przebieg Auta</td>
+                     <td>{{ form.kilometers_traveled }}</td>
+                </tr>
             {% else %}
-                {{ form.issue_resolved }}
+                <h2>Status problemu</h2>
+                <tr>
+                    <td>Był kontakt ?</td>
+                    <td>{{ form.issue_resolved }}</td>
+                </tr>
             {% endif %}
+        </table>
+
         <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź</button>
         {% csrf_token %}
         </form>

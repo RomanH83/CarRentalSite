@@ -21,7 +21,7 @@ class PastDueListView(StaffStatusRequiredMixin, ListView):
 
 class PastDueDetailView(StaffStatusRequiredMixin, UpdateView):
     model = Order
-    fields = ['issue_resolved', 'status']
+    fields = ['issue_resolved', 'status', 'kilometers_traveled']
     template_name = 'employee/employee_order_detail.html'
 
     def get_success_url(self):
