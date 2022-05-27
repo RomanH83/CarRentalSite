@@ -11,13 +11,14 @@ from carrentapp.forms import OrderDateForm, OrderCreationForm, OrderUpdateForm, 
 from carrentapp.models import BasePrice, Car, Order
 from carrentapp.utilities import calculate_cost
 from carrentapp.validators import order_date_validator, if_entries_collide_error
+from carrentapp.mixins import RestrictOwnerAccessMixin
 
 
 def base_test_view(request):
     return render(request, 'carrentapp/base.html')
 
 
-class PickOrderDate(FormView):
+class PickOrderDate(LoginRequiredMixin, FormView):
     form_class = OrderDateForm
     template_name = 'carrentapp/order_form.html'
 
@@ -60,7 +61,7 @@ class PickOrderDate(FormView):
         return redirect('order_confirm')
 
 
-class CreateOrderView(CreateView):
+class CreateOrderView(LoginRequiredMixin, CreateView):
     model = Order
     form_class = OrderCreationForm
     template_name = 'carrentapp/order_confirm.html'
@@ -91,7 +92,7 @@ class CreateOrderView(CreateView):
         return redirect('future_order')
 
 
-class OrderUpdateView(UpdateView):
+class OrderUpdateView(RestrictOwnerAccessMixin, UpdateView):
 
     template_name = 'carrentapp/order_update.html'
     model = Order
@@ -168,14 +169,14 @@ class OrderUpdateView(UpdateView):
         return redirect('future_order')
 
 
-class OrderDeleteView(DeleteView):
+class OrderDeleteView(RestrictOwnerAccessMixin, DeleteView):
     model = Order
 
     def get_success_url(self):
         return reverse('actual_order')
 
 
-class OrderDetailView(DetailView):
+class OrderDetailView(RestrictOwnerAccessMixin, DetailView):
     model = Order
 
     def get_success_url(self):
