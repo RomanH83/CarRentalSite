@@ -6,12 +6,12 @@ from django.views.generic import ListView, DetailView, TemplateView
 
 from carrentapp.views import base_test_view, CreateOrderView, FutureOrderView,\
                                 HistoryOrderView, ActualOrderView, PickOrderDate,\
-                                OrderUpdateView, OrderDeleteView, OrderDetailView
+                                OrderUpdateView, OrderDeleteView, OrderDetailView, CarListView
 from carrentapp.models import Car
 
 urlpatterns = [
     path('base-test/', base_test_view, name='zalogowany'),
-    path('carlist/', ListView.as_view(model=Car), name='car_list'),
+    path('carlist/', CarListView.as_view(), name='car_list'),
     path('cardetail/<int:pk>/', DetailView.as_view(model=Car), name="car_detail"),
     path('', TemplateView.as_view(template_name='carrentapp/home_page.html'), name='main'),
     path('contact', TemplateView.as_view(template_name='carrentapp/contact.html'), name='contact'),

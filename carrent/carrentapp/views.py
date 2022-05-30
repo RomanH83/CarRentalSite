@@ -1,21 +1,47 @@
 import datetime
 from datetime import datetime as dt
 
+import django_filters
+from django_filters.views import FilterView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ImproperlyConfigured
+from django.forms import modelform_factory
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import CreateView, ListView, FormView, UpdateView, DeleteView, DetailView
-from django.forms import modelform_factory
 
 from carrentapp.forms import OrderDateForm, OrderCreationForm, OrderUpdateForm, OrderUpdateFormBlocked
+from carrentapp.mixins import RestrictOwnerAccessMixin
 from carrentapp.models import BasePrice, Car, Order
 from carrentapp.utilities import calculate_cost
 from carrentapp.validators import order_date_validator, if_entries_collide_error
-from carrentapp.mixins import RestrictOwnerAccessMixin
 
 
 def base_test_view(request):
     return render(request, 'carrentapp/base.html')
+
+class CarFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Car
+        fields = ['brand', 'car_model', 'gearbox_type', 'number_of_seats']
+
+
+class CarListView(FilterView):
+    model = Car
+    template_name = 'carrentapp/car_list.html'
+    filterset_class = CarFilter
+
+
+# class CarListView(ListView):
+#
+#     model = Car
+#
+#     def get_context_data(self, **kwargs):
+#         fltr = CarFilter(self.request.GET, queryset=Car.objects.all())
+#         fltr_dict = {'filter': fltr}
+#         kwargs.setdefault('view', self)
+#         kwargs.update(fltr_dict)
+#         return kwargs
 
 
 class PickOrderDate(LoginRequiredMixin, FormView):
