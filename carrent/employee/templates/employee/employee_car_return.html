@@ -7,6 +7,20 @@
         <h2>Brak wyników do wyświetlenia</h2>
     {% else %}
         <h2>Zwrot samochodu</h2>
+        <section class="car_view">
+            <section class="car_table">
+                <form method="get" class="d-grid gap-2">
+                    <table class="table table-responsive table-bordered table-hover table-striped table-dark ">
+                    <h2 style="text-align: center">Dostępne Filtry</h2>
+                        <tr>
+                            <td>Klient</td>
+                            <td>{{ filter.form.client }}</td>
+                        </tr>
+                    </table>
+                    <button name="dodaj" class="btn btn-success btn-lg">Filtruj</button>
+                </form>
+            </section>
+        </section>
         <div style="height:5vh"></div>
 
     <table class="table table-responsive table-bordered table-hover table-striped table-dark">
@@ -23,7 +37,7 @@
         </thead>
         <body>
 
-        {%  for order in order_list  %}
+        {%  for order in filter.qs  %}
              <tr class="table-secondary">
                  <td> {{ order.client.email }}  </td>
                  <td> {{ order.car.brand }} </td>

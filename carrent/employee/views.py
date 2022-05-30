@@ -1,10 +1,13 @@
 from datetime import date
-from django.views.generic import TemplateView, ListView, UpdateView
-from django.shortcuts import reverse, redirect
 
-from carrentapp.models import Order
-from employee.validators import new_mileage_validator
+import django_filters
+from django_filters.views import FilterView
+from django.shortcuts import reverse, redirect, render
+from django.views.generic import TemplateView, ListView, UpdateView
+
+from carrentapp.models import Order, Car
 from employee.mixins import StaffStatusRequiredMixin
+from employee.validators import new_mileage_validator
 
 
 class EmployeeHomeView(StaffStatusRequiredMixin, TemplateView):
@@ -53,6 +56,13 @@ class PastDueDetailView(StaffStatusRequiredMixin, UpdateView):
         return initial
 
 
+class OrderFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Order
+        fields = ['client']
+
+
 class CarReturnListView(StaffStatusRequiredMixin, ListView):
     model = Order
     template_name = 'employee/employee_car_return.html'
@@ -60,6 +70,19 @@ class CarReturnListView(StaffStatusRequiredMixin, ListView):
     def get_queryset(self):
         orders = Order.objects.filter(return_date=date.today(), status="Aktywny")
         return orders
+
+    def get_context_data(self, **kwargs):
+        fltr = OrderFilter(self.request.GET, queryset=self.get_queryset())
+        fltr_dict = {'filter': fltr}
+        kwargs.setdefault('view', self)
+        kwargs.update(fltr_dict)
+        return kwargs
+
+
+# class CarListView(FilterView):
+#     model = Car
+#     template_name = 'carrentapp/car_list.html'
+#     filterset_class = CarFilter
 
 
 class CarReturnDetailView(StaffStatusRequiredMixin, UpdateView):
