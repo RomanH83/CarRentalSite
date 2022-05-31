@@ -132,3 +132,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
+
+DEFAULT_FROM_EMAIL = 'carrentalsitecrs@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'carrentalsitecrs@gmail.com'
+EMAIL_HOST_PASSWORD = "djangoemail"
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
