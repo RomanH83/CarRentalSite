@@ -110,6 +110,11 @@ class CreateOrderView(LoginRequiredMixin, CreateView):
         objct.base_price = BasePrice.objects.get(id=1)
         objct.start_date = dt.strptime(self.request.session.get('start_date'), '%Y-%m-%d').date()
         objct.return_date = dt.strptime(self.request.session.get('return_date'), '%Y-%m-%d').date()
+
+        errors = if_entries_collide_error(objct.start_date, objct.return_date, objct.car)
+        if errors:
+            return redirect('car_list')
+
         objct.save()
 
         order = Order.objects.get(client=objct.client, car=objct.car, start_date=objct.start_date, return_date=objct.return_date)
