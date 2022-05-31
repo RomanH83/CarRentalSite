@@ -12,7 +12,7 @@ from django.views.generic import CreateView, ListView, FormView, UpdateView, Del
 from carrentapp.forms import OrderDateForm, OrderCreationForm, OrderUpdateForm, OrderUpdateFormBlocked
 from carrentapp.mixins import RestrictOwnerAccessMixin
 from carrentapp.models import BasePrice, Car, Order
-from carrentapp.utilities import calculate_cost
+from carrentapp.utilities import calculate_cost, send_order_confirmation_mail
 from carrentapp.validators import order_date_validator, if_entries_collide_error
 
 
@@ -111,6 +111,9 @@ class CreateOrderView(LoginRequiredMixin, CreateView):
         objct.start_date = dt.strptime(self.request.session.get('start_date'), '%Y-%m-%d').date()
         objct.return_date = dt.strptime(self.request.session.get('return_date'), '%Y-%m-%d').date()
         objct.save()
+
+        order = Order.objects.get(client=objct.client, car=objct.car, start_date=objct.start_date, return_date=objct.return_date)
+        send_order_confirmation_mail([objct.client.email], order)
 
         if objct.start_date == datetime.date.today():
             return redirect('actual_order')
