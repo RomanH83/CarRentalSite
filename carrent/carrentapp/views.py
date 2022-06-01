@@ -55,7 +55,7 @@ class PickOrderDate(LoginRequiredMixin, FormView):
         return_date = self.request.POST.get('return_date')
         return_date_datetime = dt.strptime(return_date, '%Y-%m-%d').date()
 
-        base_price = BasePrice.objects.get(id=1).base_price
+        base_price = BasePrice.objects.last().base_price
         car = Car.objects.get(id=self.kwargs['pk'])
         self.request.session['car_id'] = car.id
         self.request.session['car_image'] = car.car_image.url
@@ -107,7 +107,7 @@ class CreateOrderView(LoginRequiredMixin, CreateView):
         objct = form.save(commit=False)
         objct.client = self.request.user
         objct.car = Car.objects.get(id=self.request.session.get('car_id'))
-        objct.base_price = BasePrice.objects.get(id=1)
+        objct.base_price = BasePrice.objects.last()
         objct.start_date = dt.strptime(self.request.session.get('start_date'), '%Y-%m-%d').date()
         objct.return_date = dt.strptime(self.request.session.get('return_date'), '%Y-%m-%d').date()
 
