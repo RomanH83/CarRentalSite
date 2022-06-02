@@ -62,8 +62,8 @@ class PickOrderDate(LoginRequiredMixin, FormView):
         self.request.session['car_brand'] = car.brand.brand_name
         self.request.session['car_model'] = car.car_model.model_name
         self.request.session['car_engine_power'] = car.engine_power
-        self.request.session['car_engine_type'] = car.engine_type
-        self.request.session['car_gearbox_type'] = car.gearbox_type
+        self.request.session['car_engine_type'] = car.get_engine_type_display()
+        self.request.session['car_gearbox_type'] = car.get_gearbox_type_display()
         self.request.session['car_color'] = car.color
         self.request.session['car_number_of_seats'] = car.number_of_seats
         self.request.session['car_year_of_production'] = car.year_of_production

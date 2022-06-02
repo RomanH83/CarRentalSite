@@ -3,7 +3,7 @@ from datetime import date
 from django.core.exceptions import ValidationError
 
 from carrentapp.models import Order
-
+from carrentapp.enums import OrderStatus
 
 def catch_validation_error(func):
     """Takes a validator function, catches ValidationError and returns its message string"""
@@ -41,11 +41,11 @@ def if_entries_collide_error(start_date, return_date, car, order_id=None):
     if order_id is not None:
         colliding_entries = Order.objects.exclude(id=order_id)
         colliding_entries = colliding_entries.filter(
-                                status='Aktywny',
+                                status=OrderStatus.AKTYWNY,
                                 car=car,
                                 start_date__range=(start_date, return_date)) | \
                             colliding_entries.filter(
-                                status='Aktywny',
+                                status=OrderStatus.AKTYWNY,
                                 car=car,
                                 return_date__range=(start_date, return_date))
 
@@ -53,11 +53,11 @@ def if_entries_collide_error(start_date, return_date, car, order_id=None):
             raise ValidationError("Ten samochód jest niedostępny w tych terminach.")
     else:
         colliding_entries = Order.objects.filter(
-                                status='Aktywny',
+                                status=OrderStatus.AKTYWNY,
                                 car=car,
                                 start_date__range=(start_date, return_date)) | \
                             Order.objects.filter(
-                                status='Aktywny',
+                                status=OrderStatus.AKTYWNY,
                                 car=car,
                                 return_date__range=(start_date, return_date))
 

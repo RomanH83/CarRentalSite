@@ -19,11 +19,11 @@
         </tr>
         <tr>
             <td>Silnik</td>
-            <td>{{ car.engine_type }}</td>
+            <td>{{ car.get_engine_type_display }}</td>
         </tr>
         <tr>
             <td>Skrzynia biegów</td>
-            <td>{{ car.gearbox_type }}</td>
+            <td>{{ car.get_gearbox_type_display }}</td>
         </tr>
         <tr>
             <td>Kolor</td>
@@ -44,7 +44,3 @@
 </section>
 <div style="height:100vh"></div>
 {% endblock %}
-
-
-
-

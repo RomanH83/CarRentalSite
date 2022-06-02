@@ -26,15 +26,15 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto me-auto">
                 {% if request.user.is_authenticated %}
-                 <a class="nav-link px-lg-3" href="{% url 'car_list' %}">Wypożycz</a>
+                <a class="nav-link px-lg-3" href="{% url 'car_list' %}">Wypożycz</a>
                 {% else %}
                 <a class="nav-link px-lg-3" href="{% url 'login' %}">Wypożycz</a>
                 {% endif %}
-              <a class="nav-link px-lg-3" href="{% url 'main' %}">Strona główna</a>
-              <a class="nav-link px-lg-3" href="{% url 'car_list' %}">Flota</a>
+                <a class="nav-link px-lg-3" href="{% url 'main' %}">Strona główna</a>
+                <a class="nav-link px-lg-3" href="{% url 'car_list' %}">Flota</a>
                 <a class="nav-link px-lg-3" href="{% url 'car_list' %}">Oddziały</a>
-              <a class="nav-link px-lg-3" href="{% url 'about' %}">O nas</a>
-              <a class="nav-link px-lg-3" href="{% url 'contact' %}">Kontakt</a>
+                <a class="nav-link px-lg-3" href="{% url 'about' %}">O nas</a>
+                <a class="nav-link px-lg-3" href="{% url 'contact' %}">Kontakt</a>
 
 
 
