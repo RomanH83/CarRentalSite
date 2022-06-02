@@ -2,45 +2,49 @@
 {% load static %}
 
 {% block section_one %}
-<h1 id="detailheader"> {{  car.brand }} {{ car.car_model }} </h1>
-<section class="car_view">
-<img id="detailimage" src="{{ car.car_image.url }}" alt="{{ car.color }} samochod">
-    <section class="car_table">
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+    <p class="top-hero-text text-light" style="font-size: 8rem; height: 80%">{{ car.brand }} {{ car.car_model }}</p>
+    <div class="hero-shadow" style="height: 80%"></div>
+    </section>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-4">
         <table class="table table-responsive table-bordered table-hover table-striped table-dark">
             <tr>
-            <td><a href="{% url 'order' car.id %}" class="btn btn-success d-md-block">Zarezerwuj ten samochód</a></td>
+                <td>Moc KM</td>
+                <td>{{ car.engine_power }}</td>
+            </tr>
+            <tr>
+                <td>Silnik</td>
+                <td>{{ car.get_engine_type_display }}</td>
+            </tr>
+            <tr>
+                <td>Skrzynia biegów</td>
+                <td>{{ car.get_gearbox_type_display }}</td>
+            </tr>
+            <tr>
+                <td>Kolor</td>
+                <td>{{ car.color }}</td>
+            </tr>
+            <tr>
+                <td>Liczba miejsc</td>
+                <td>{{ car.number_of_seats }}</td>
+            </tr>
+            <tr>
+                <td>Rok produkcji</td>
+                <td>{{ car.year_of_production }}</td>
             </tr>
         </table>
-        <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+        <a href="{% url 'order' car.id %}" class="btn btn-success btn-lg d-md-block" style="font-size: large">Zarezerwuj ten samochód</a>
+            </div>
+            <div class="col-8">
+                <img class="img-fluid rounded float-end" src="{{ car.car_image.url }}" alt="{{ car.color }} samochod">
+            </div>
+        </div>
+    </div>
 
-        <tr>
-            <td>Moc KM</td>
-            <td>{{ car.engine_power }}</td>
-        </tr>
-        <tr>
-            <td>Silnik</td>
-            <td>{{ car.get_engine_type_display }}</td>
-        </tr>
-        <tr>
-            <td>Skrzynia biegów</td>
-            <td>{{ car.get_gearbox_type_display }}</td>
-        </tr>
-        <tr>
-            <td>Kolor</td>
-            <td>{{ car.color }}</td>
-        </tr>
-        <tr>
-            <td>Liczba miejsc</td>
-            <td>{{ car.number_of_seats }}</td>
-        </tr>
-        <tr>
-            <td>Rok produkcji</td>
-            <td>{{ car.year_of_production }}</td>
-        </tr>
 
-        </table>
-      <br>
-    </section>
-</section>
+
+
 <div style="height:100vh"></div>
 {% endblock %}
