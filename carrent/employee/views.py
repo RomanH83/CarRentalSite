@@ -1,11 +1,11 @@
 from datetime import date
 
 import django_filters
-from django_filters.views import FilterView
-from django.shortcuts import reverse, redirect, render
+from django.shortcuts import reverse, redirect
 from django.views.generic import TemplateView, ListView, UpdateView
 
-from carrentapp.models import Order, Car
+from carrentapp.models import Order
+from carrentapp.enums import OrderStatus
 from employee.mixins import StaffStatusRequiredMixin
 from employee.validators import new_mileage_validator
 
@@ -19,7 +19,7 @@ class PastDueListView(StaffStatusRequiredMixin, ListView):
     template_name = 'employee/employee_past_due_list.html'
 
     def get_queryset(self):
-        orders = Order.objects.filter(return_date__lt=date.today(), status='Aktywny').order_by('issue_resolved')
+        orders = Order.objects.filter(return_date__lt=date.today(), status=OrderStatus.AKTYWNY).order_by('issue_resolved')
         return orders
 
 
@@ -68,7 +68,7 @@ class CarReturnListView(StaffStatusRequiredMixin, ListView):
     template_name = 'employee/employee_car_return.html'
 
     def get_queryset(self):
-        orders = Order.objects.filter(return_date=date.today(), status="Aktywny")
+        orders = Order.objects.filter(return_date=date.today(), status=OrderStatus.AKTYWNY)
         return orders
 
     def get_context_data(self, **kwargs):

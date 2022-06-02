@@ -3,7 +3,7 @@ from datetime import date
 from django.db import models
 
 from accounts.models import UserCustom
-
+from carrentapp.enums import CarEngineType, CarGearboxType, OrderStatus
 
 class CarBrand(models.Model):
     brand_name = models.CharField(max_length=50, verbose_name="Marka", unique=True)
@@ -36,13 +36,13 @@ class Car(models.Model):
     year_of_production = models.IntegerField(verbose_name="Rok produkcji")
     rating = models.FloatField(verbose_name="Ocena")
     number_of_seats = models.IntegerField(verbose_name="Ilość miejsc")
-    engine_type = models.CharField(max_length=20, verbose_name="Rodzaj silnika",
-                                   choices=(('Benzynowy', 'Benzynowy'), ('Diesel', 'Diesel'), ('Elektryczny', 'Elektryczny'), ('Hybryda', 'Hybryda')))
+    engine_type = models.CharField(max_length=2, verbose_name="Rodzaj silnika",
+                                   choices=CarEngineType.choices)
     engine_power = models.IntegerField(verbose_name="Moc")
-    color = models.CharField(max_length=50, verbose_name="Kolor")
+    color = models.CharField(max_length=20, verbose_name="Kolor")
     car_mileage = models.IntegerField(verbose_name="Przebieg")
     car_image = models.ImageField(upload_to='images/cars', verbose_name="Zdjęcie")
-    gearbox_type = models.CharField(max_length=15, verbose_name="Skrzynia biegów", choices=(('Automatyczna', 'Automatyczna'), ('Manualna', 'Manualna')))
+    gearbox_type = models.CharField(max_length=1, verbose_name="Skrzynia biegów", choices=CarGearboxType.choices)
 
     class Meta:
         verbose_name = "Samochód"
@@ -75,12 +75,10 @@ class Order(models.Model):
     order_datetime = models.DateTimeField(verbose_name="Powstanie zamówienia", auto_now_add=True)
     last_modified = models.DateTimeField(verbose_name="Edytowane", auto_now=True)
 
-    status = models.CharField(max_length=10,
+    status = models.CharField(max_length=1,
                               verbose_name="Status",
-                              choices=(
-                                  ('Aktywny', 'Aktywny'),
-                                  ('Historia', 'Historia')),
-                              default='Aktywny')
+                              choices=OrderStatus.choices,
+                              default=OrderStatus.AKTYWNY)
     issue_resolved = models.BooleanField(verbose_name="Problem rozwiązany", null=True)
 
     class Meta:
