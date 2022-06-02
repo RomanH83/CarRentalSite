@@ -4,14 +4,14 @@
 
 <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
     <p class="top-hero-text text-light" style="height: 80%">Nasza flota</p>
-    <div class="hero-shadow" style="height: 80%"></div>
+    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
 </section>
 
 <section class="car_view">
     <section class="car_table">
-        <form method="get" class="d-grid gap-2">
-            <table class="table table-responsive table-bordered table-hover table-striped table-dark ">
-            <h2 style="text-align: center">Dostępne Filtry</h2>
+        <form method="get" class="d-grid gap-2 bg-dark bg-gradient p-2 shadow rounded">
+            <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+            <h2 style="color:white; text-align: center">Dostępne Filtry</h2>
                 <tr>
                     <td>Marka</td>
                     <td>{{ filter.form.brand }}</td>
@@ -39,7 +39,7 @@
 
     {% for obj in filter.qs %}
         <div class="col-md-6 col-lg-4">
-            <div class="shadow card mb-3 border-dark">
+            <div class="shadow card mb-3 bg-dark bg-gradient">
                 <a href="{% url 'car_detail' obj.id %}"><img class="card-img-top" src="{{ obj.car_image.url }}"></a>
                 <div class="card-body">
                     <div class="d-grid gap-2">
@@ -61,7 +61,7 @@
                                 <td>{{ obj.number_of_seats }}</td>
                             </tr>
                         </table>
-                        <a href="{% url 'car_detail' obj.id %}" class="shadow btn btn-outline-dark px-4" style="font-size: large" role="button">Wypożycz</a>
+                        <a href="{% url 'car_detail' obj.id %}" class="shadow btn btn-outline-light px-4" style="font-size: large" role="button">Wypożycz</a>
                     </div>
                 </div>
             </div>
