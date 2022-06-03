@@ -35,7 +35,7 @@
                         <td>{{ car.year_of_production }}</td>
                     </tr>
                 </table>
-                <a href="{% url 'order' car.id %}" class="btn btn-success btn-lg  d-grid gap-2" style="font-size: large">Zarezerwuj ten samochód</a>
+                <a href="{% url 'order' car.id %}" class="btn btn-success btn-lg bg-gradient d-grid gap-2" style="font-size: large">Zarezerwuj ten samochód</a>
             </div>
             <div class="col-sm-8 mb-2 mt-2">
                 <img class="img-fluid rounded float-end" src="{{ car.car_image.url }}" alt="{{ car.color }} samochod">
