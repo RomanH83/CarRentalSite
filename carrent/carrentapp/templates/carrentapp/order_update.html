@@ -1,38 +1,45 @@
 {% extends 'carrentapp/base.html' %}
+{% load static %}
 {% block section_one %}
 
-<form method="POST" novalidate>
-        {% if order.is_past %}
-            <p style="font-size:  3rem; color: red">Nie powinineś się tu znaleźć {{ request.user.username }}!</p>
-        {% else %}
-            <p style="font-size:  3rem; color: blue">Witaj {{ request.user.username }}!</p>
-            <h1 style="color: blue">Możesz zmienić termin zamówienia:</h1>
-            <p style="font-size:  2rem">Zamówiłeś samochód {{ order.car.brand }} {{ order.car.car_model }} - kolor: {{ order.car.color }} </p>
-            <p>w terminie: {{ order.start_date }} - {{ order.return_date }}</p>
-        {% endif %}
+<section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+    <p class="top-hero-text text-light mb-0" style="font-size: 5rem; height: 40%; text-align: center">Zmiana terminu</p>
+    <p class="top-hero-text text-light mt-0" style="font-size: 3rem; height: 40%; text-align: center">{{ request.session.car_brand }} {{ request.session.car_model }}</p>
+    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+</section>
 
-    <p style="color: red">{{ view.kwargs.msg }}</p>
-
-    <section class="py-5 projects mb-5">
-        <table class="table table-responsive table-bordered table-hover table-striped table-dark" style="width: 25% " >
-            {% if order.is_past %}
-                <p style="color: rebeccapurple;font-size: 2rem">Edycja minionych zamówień nie jest dozwolona </p>
+<section class="car_view" style="align-items: start">
+    <section class="car_table">
+        <form method="POST" novalidate class="d-grid gap-0 bg-dark bg-gradient p-2 rounded">
+            <table class="table table-responsive table-bordered table-hover table-dark">
+                {% if order.is_past %}
+                    <p style="font-size:  3rem; color: red; text-align: center">Nie powinineś się tu znaleźć {{ request.user.username }}!<br>Edycja minionych zamówień nie jest dozwolona</p>
+                {% else %}
+                <p style="color: lightseagreen; margin-bottom: 0px; text-align: center">Proszę wybrać nową datę odbioru i zwrotu samochodu</p>
+                <p style="color: red; text-align: center">{{ view.kwargs.msg }}</p>
+                <tr>
+                    <td>Data odbioru</td>
+                    <td>{{ form.start_date }}</td>
+                </tr>
+                <tr>
+                    <td>Data zwrotu</td>
+                    <td>{{ form.return_date }}</td>
+                </tr>
+                {% endif %}
+            </table>
+            {% if order.is_future %}
+                <a href="{% url 'future_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
+                <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź nowy termin</button>
+            {% elif order.is_past %}
+                <a href="{% url 'history_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
             {% else %}
-                {{ form }}
+                <a href="{% url 'actual_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
+                <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź nowy termin</button>
             {% endif %}
-        </table>
+            {% csrf_token %}
 
-        {% if order.is_future %}
-            <a href="{% url 'future_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
-            <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź nowy termin</button>
-        {% elif order.is_past %}
-            <a href="{% url 'history_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
-        {% else %}
-            <a href="{% url 'actual_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
-            <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź nowy termin</button>
-        {% endif %}
-        {% csrf_token %}
+        </form>
     </section>
-</form>
+</section>
 <div style="height:100vh"></div>
 {% endblock %}
