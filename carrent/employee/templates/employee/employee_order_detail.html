@@ -1,11 +1,15 @@
 {% extends 'employee/employee_base.html' %}
 
 {% block section_one %}
-    {% if order.issue_resolved != None  %}
-        <h1 id="detailheader" style="text-align: center"> Oczekuje na zwrot </h1>
-    {% else %}
-        <h1 id="detailheader" style="text-align: center; color: crimson" > Skontaktuj się z klientem </h1>
-    {% endif %}
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+        {% if order.issue_resolved != None  %}
+            <p class="top-hero-text" style="height: 80%; font-size: 6rem; color: green">Zwrot samochodu</p>
+            <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+        {% else %}
+            <p class="top-hero-text" style="height: 80%; font-size: 6rem; color: red">Skontakuj sie z klientem</p>
+            <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+        {% endif %}
+    </section>
 
 <section class="car_view">
     <section class="car_table">
