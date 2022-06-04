@@ -13,15 +13,15 @@
                 <p style="color: lightseagreen; margin-bottom: 0px; text-align: center">Proszę wybrać datę odbioru i zwrotu samochodu</p>
                 <p style="color: red; text-align: center">{{ view.kwargs.msg }}</p>
                 <tr>
-                    <td>Data odbioru</td>
+                    <td style="font-size: large; vertical-align: middle">Data odbioru</td>
                     <td>{{ form.start_date }}</td>
                 </tr>
                 <tr>
-                    <td>Data zwrotu</td>
+                    <td style="font-size: large; vertical-align: middle">Data zwrotu</td>
                     <td>{{ form.return_date }}</td>
                 </tr>
             </table>
-            <button name="dodaj" class="btn btn-success btn-lg bg-gradient">Dodaj</button>
+            <button name="dodaj" class="btn btn-success btn-lg bg-gradient" style="font-size: large">Dodaj</button>
             {% csrf_token %}
         </form>
 </section>
