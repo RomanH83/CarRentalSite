@@ -2,6 +2,11 @@
 {% block title %}Profil użytkownika{% endblock title %}
 {% block section_one%}
 
+<section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+    <p class="top-hero-text text-light" style="font-size: 5rem; height: 80%">Edytuj dane profilowe</p>
+    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+</section>
+
     {% if user_form.errors %}
         <div class="alert alert-danger alert-dismissible" role="alert">
             <div id="form_errors">
@@ -14,43 +19,55 @@
             </button>
         </div>
     {% endif %}
-        <div class="container">
-            <div class="row justify-content-center">
-    <div class="form-content">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-row">
-                <div class="col-md-5 p-2 bg-light border" >
-                    <div class="form-group">
-                        <label class="small mb-1">Email:</label>
-                            {{ user_form.email }}
-                        <label class="small mb-1">Użytkownik:</label>
-                            {{ user_form.username }}
-                        <label class="small mb-1">Imię:</label>
-                            {{ user_form.first_name }}
-                         <label class="small mb-1">Nazwisko:</label>
-                            {{ user_form.last_name }}
-                         <label class="small mb-1">Data urodzenia:</label>
-                            {{ user_form.birthdate }}
-                         <label class="small mb-1">Miasto:</label>
-                            {{ user_form.addr_city }}
-                        <label class="small mb-1">Ulica:</label>
-                            {{ user_form.addr_street }}
-                        <label class="small mb-1">Kod pocztowy:</label>
-                            {{ user_form.addr_post_code }}
-                         <label class="small mb-1">Numer telefonu:</label>
-                            {{ user_form.mobile_nr }}
 
-                    </div>
-                </div>
-            </div>
-            <br><br>
-            <button type="submit" class="btn btn-dark btn-lg">Zapisz zmiany</button>
-            <button type="reset" class="btn btn-dark btn-lg">Anuluj</button>
-            <a href="{% url 'password_change' %}" class="btn btn-dark btn-lg" role="button">Zmień hasło</a>
-        </form>
-            </div>
-                   </div>
-               </div>
+<section class="car_view">
+    <section class="car_table">
+                <form method="post" enctype="multipart/form-data" class="d-grid gap-2 bg-dark bg-gradient p-2 shadow rounded">
+                    <table class="table fs-2 table-responsive table-bordered table-hover table-striped table-dark">
+                        <tr>
+                            <td>Email:</td>
+                            <td>{{ user_form.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>Użytkownik:</td>
+                            <td style="font-size: large">{{ user_form.username }}</td>
+                        </tr>
+                        <tr>
+                            <td>Imię:</td>
+                            <td>{{ user_form.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Nazwisko:</td>
+                            <td>{{ user_form.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Data urodzenia:</td>
+                            <td>{{ user_form.birthdate }}</td>
+                        </tr>
+                        <tr>
+                            <td>Miasto:</td>
+                            <td>{{ user_form.addr_city }}</td>
+                        </tr>
+                        <tr>
+                            <td>Ulica:</td>
+                            <td>{{ user_form.addr_street }}</td>
+                        </tr>
+                        <tr>
+                            <td>Kod pocztowy:</td>
+                            <td>{{ user_form.addr_post_code }}</td>
+                        </tr>
+                        <tr>
+                            <td>Numer telefonu:</td>
+                            <td>{{ user_form.mobile_nr }}</td>
+                        </tr>
+                    </table>
+                        <button type="reset" class="btn btn-dark btn-lg" style="font-size: large">Anuluj</button>
+                        <button type="submit" class="btn btn-success btn-lg bg-gradient" style="font-size: large">Zapisz zmiany</button>
+                        <a href="{% url 'password_change' %}" class="btn btn-warning btn-lg bg-gradient" role="button" style="font-size: large">Zmień hasło</a>
+                        {% csrf_token %}
+                </form>
+    </section>
+</section>
 
+    <div style="height:100vh"></div>
 {% endblock %}
