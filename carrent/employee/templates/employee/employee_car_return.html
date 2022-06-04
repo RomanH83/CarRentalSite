@@ -1,23 +1,26 @@
 {% extends 'employee/employee_base.html' %}
 
 {% block section_one %}
+        <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+            <p class="top-hero-text text-light" style="height: 80%; font-size: 6rem">Zwrot samochodu</p>
+            <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+        </section>
 <div class="container h-100 d-flex flex-column align-items-center text-dark text-center">
     {% if order_list.count < 1 %}
         <div style="height:15vh"></div>
         <h2>Brak wyników do wyświetlenia</h2>
     {% else %}
-        <h2>Zwrot samochodu</h2>
         <section class="car_view">
             <section class="car_table">
-                <form method="get" class="d-grid gap-2">
+                <form method="get" class="d-grid gap-2 bg-dark bg-gradient p-2 shadow rounded">
                     <table class="table table-responsive table-bordered table-hover table-striped table-dark ">
-                    <h2 style="text-align: center">Dostępne Filtry</h2>
+                    <h2 style="text-align: center; color: white; font-size: x-large">Dostępne Filtry</h2>
                         <tr>
-                            <td>Klient</td>
-                            <td>{{ filter.form.client }}</td>
+                            <td style="font-size: large">Klient</td>
+                            <td style="font-size: large">{{ filter.form.client }}</td>
                         </tr>
                     </table>
-                    <button name="dodaj" class="btn btn-success btn-lg">Filtruj</button>
+                    <button style="font-size: large" name="dodaj" class="btn btn-success btn-lg bg-gradient">Filtruj</button>
                 </form>
             </section>
         </section>
