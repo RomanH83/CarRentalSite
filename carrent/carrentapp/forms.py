@@ -6,10 +6,12 @@ from carrentapp.models import Order
 class OrderDateForm(forms.Form):
     start_date = forms.DateField(required=True,
                                  widget=forms.DateInput(attrs={'class': 'form-control',
-                                                               'type': 'date'}))
+                                                               'type': 'date',
+                                                               'style': 'font-size: large'}))
     return_date = forms.DateField(required=True,
                                   widget=forms.DateInput(attrs={'class': 'form-control',
-                                                                'type': 'date'}))
+                                                                'type': 'date',
+                                                                'style': 'font-size: large'}))
 
 
 class OrderCreationForm(forms.ModelForm):
@@ -30,10 +32,12 @@ class OrderCreationForm(forms.ModelForm):
 class OrderUpdateForm(forms.ModelForm):
     start_date = forms.DateField(required=True,
                                  widget=forms.DateInput(attrs={'class': 'form-control',
-                                                               'type': 'date'}))
+                                                               'type': 'date',
+                                                                'style': 'font-size: large'}))
     return_date = forms.DateField(required=True,
                                   widget=forms.DateInput(attrs={'class': 'form-control',
-                                                                'type': 'date'}))
+                                                                'type': 'date',
+                                                                'style': 'font-size: large'}))
 
     class Meta:
         model = Order
@@ -44,7 +48,8 @@ class OrderUpdateFormBlocked(OrderUpdateForm):
     start_date = forms.DateField(required=True,
                                  disabled=True,
                                  widget=forms.DateInput(attrs={'class': 'form-control',
-                                                               'type': 'date'}))
+                                                               'type': 'date',
+                                                               'style': 'font-size: large'}))
 
     class Meta:
         model = Order
