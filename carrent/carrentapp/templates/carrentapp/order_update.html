@@ -18,26 +18,25 @@
                 <p style="color: lightseagreen; margin-bottom: 0px; text-align: center">Proszę wybrać nową datę odbioru i zwrotu samochodu</p>
                 <p style="color: red; text-align: center">{{ view.kwargs.msg }}</p>
                 <tr>
-                    <td>Data odbioru</td>
+                    <td style="font-size: large; vertical-align: middle">Data odbioru</td>
                     <td>{{ form.start_date }}</td>
                 </tr>
                 <tr>
-                    <td>Data zwrotu</td>
+                    <td style="font-size: large; vertical-align: middle">Data zwrotu</td>
                     <td>{{ form.return_date }}</td>
                 </tr>
                 {% endif %}
             </table>
             {% if order.is_future %}
                 <a href="{% url 'future_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
-                <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź nowy termin</button>
+                <button name="dodaj" class="btn btn-success btn-lg" style="font-size: large">Zatwierdź nowy termin</button>
             {% elif order.is_past %}
                 <a href="{% url 'history_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
             {% else %}
                 <a href="{% url 'actual_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
-                <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź nowy termin</button>
+                <button name="dodaj" class="btn btn-success btn-lg" style="font-size: large ">Zatwierdź nowy termin</button>
             {% endif %}
             {% csrf_token %}
-
         </form>
     </section>
 </section>
