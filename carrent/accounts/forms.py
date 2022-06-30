@@ -58,14 +58,15 @@ class LoginForm(AuthenticationForm):
                                 required=True,
                                 widget=forms.TextInput(attrs={'placeholder': 'e-mail',
                                                               'class': 'form-control',
+                                                              'style': 'font-size: large'
                                                               }))
     password = forms.CharField(max_length=50,
                                required=True,
                                widget=forms.PasswordInput(attrs={'placeholder': 'Hasło',
                                                                  'class': 'form-control',
-                                                                 'data-toggle': 'password',
                                                                  'id': 'password',
                                                                  'name': 'password',
+                                                                 'style': 'font-size: large'
                                                                  }))
 
     class Meta:
