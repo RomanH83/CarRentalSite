@@ -1,6 +1,19 @@
 {% extends 'carrentapp/base.html' %}
 {% block title %} Strona logowania {% endblock title%}
 {% block section_one %}
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+</svg>
+
 <div class="view">
     <div class="form-content my-3 p-3">
         <div class="container">
@@ -11,14 +24,15 @@
                           <h3 class="font-weight-light my-1 text-center">Zaloguj</h3>
                         </div>
                         {% if form.errors %}
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <div id="form_errors">
-                                    {% for key, value in form.errors.items %}
-                                        <strong>{{ value }}</strong>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <div id="form_errors" style="text-align: center">
+                                    {% for value in form.errors.values %}
+                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                        <strong>{{ value.as_text|cut:"* " }}</strong><br>
                                     {% endfor %}
                                 </div>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Zamknij">
-                                    <span aria-hidden="true">&times;</span>
+                                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Zamknij">
+
                                 </button>
                             </div>
                         {% endif %}
@@ -28,7 +42,7 @@
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group">
-                                            <label class="small mb-1">Email</label>
+                                            <label class="mb-1">Email</label>
                                             {{ form.username }}
                                         </div>
                                     </div>
@@ -36,7 +50,7 @@
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group">
-                                          <label class="small mb-1">Hasło</label>
+                                          <label class="mb-1">Hasło</label>
                                           {{ form.password }}
                                         </div>
                                     </div>
@@ -45,18 +59,18 @@
                                     <br>
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group mt-0 mb-1">
-                                          <button name="login" class="col-md-12 btn btn-dark" id="login">Zaloguj</button>
+                                          <button name="login" class="col-12 btn btn-dark btn-lg" id="login">Zaloguj</button>
                                         </div>
                                          <br>
 
                                     </div>
                                 </div>
                             </form>
-                            <div class="card-footer text-center">
+                        </div>
+                        <div class="card-footer text-center">
                             <div class="small">
                                 <a href="{% url 'users-registration' %}" class="btn btn-dark btn-lg" role="button">Nie masz konta? Zarejestruj się</a>
                             </div>
-                        </div>
                         </div>
 
                     </div>
