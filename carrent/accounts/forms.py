@@ -149,19 +149,26 @@ class RegistrationForm(UserCreationForm):
 
 class UpdateUserForm(forms.ModelForm):
     email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+                             widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           'style': 'font-size: large'}))
     username = forms.CharField(required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+                               widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           'style': 'font-size: large'}))
     first_name = forms.CharField(required=True,
-                                 widget=forms.TextInput(attrs={'class': 'form-control'}))
+                                 widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           'style': 'font-size: large'}))
     last_name = forms.CharField(required=True,
-                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+                                widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           'style': 'font-size: large'}))
     birthdate = forms.DateField(required=True,
-                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+                                widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           'style': 'font-size: large'}))
     addr_city = forms.CharField(required=True,
-                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+                                widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           'style': 'font-size: large'}))
     addr_street = forms.CharField(required=True,
-                                  widget=forms.TextInput(attrs={'class': 'form-control'}))
+                                  widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           'style': 'font-size: large'}))
     addr_post_code = forms.CharField(required=True,
                                      validators=[
                                          RegexValidator(
@@ -169,7 +176,8 @@ class UpdateUserForm(forms.ModelForm):
                                              message='Proszę wpisać kod pocztowy w formacie xx-xxx',
                                          ),
                                      ],
-                                     widget=forms.TextInput(attrs={'class': 'form-control'}))
+                                     widget=forms.TextInput(attrs={'class': 'form-control',
+                                                               'style': 'font-size: large'}))
     mobile_nr = forms.CharField(required=True,
                                 validators=[
                                     RegexValidator(
@@ -177,7 +185,8 @@ class UpdateUserForm(forms.ModelForm):
                                         message='Proszę wpisać nr telefonu w formacie: xxx-xxx-xxx',
                                     ),
                                 ],
-                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+                                widget=forms.TextInput(attrs={'class': 'form-control',
+                                                               'style': 'font-size: large'}))
 
     class Meta:
         model = get_user_model()
