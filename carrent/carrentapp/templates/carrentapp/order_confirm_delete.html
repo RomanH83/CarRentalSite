@@ -3,7 +3,7 @@
 
 <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
     <p class="top-hero-text text-light mb-0" style="font-size: 5rem; height: 40%; text-align: center">Na pewno usunąć?</p>
-    <p class="top-hero-text text-light mt-0" style="font-size: 3rem; height: 40%; text-align: center">{{ request.session.car_brand }} {{ request.session.car_model }}</p>
+    <p class="top-hero-text text-light mt-0" style="font-size: 3rem; height: 40%; text-align: center">{{ object.car.brand.brand_name }} {{ object.car.car_model }}</p>
     <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
 </section>
 

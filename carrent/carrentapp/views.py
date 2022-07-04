@@ -205,7 +205,7 @@ class OrderDeleteView(RestrictOwnerAccessMixin, DeleteView):
     model = Order
 
     def get_success_url(self):
-        return reverse('actual_order')
+        return reverse('future_order')
 
 
 class OrderDetailView(RestrictOwnerAccessMixin, DetailView):
