@@ -31,7 +31,7 @@ def send_order_confirmation_mail(recipents_email_list, order):
     senders_email = settings.EMAIL_HOST_USER
     attachment_pdf = create_pdf_from_order(message, order)
     email_temp = EmailMessage(subject, message, senders_email, recipents_email_list)
-    email_temp.attach('order_detail.pdf', attachment_pdf, 'application/pdf')
+    email_temp.attach(f'order_detail_{order.id}.pdf', attachment_pdf, 'application/pdf')
     email_temp.send(fail_silently=True)
 
 
@@ -53,6 +53,7 @@ def create_pdf_from_order(message, order):
     base_y -= 250
     temp_pdf.drawImage(image_link, 150, base_y, 320, 240, preserveAspectRatio=True)
     temp_pdf.drawString(30, 30, f'generated on {date.today()} by CarRental Bagniaki incorporated')
+    temp_pdf.setTitle(f"Order - {order.id}")
     temp_pdf.showPage()
     temp_pdf.save()
     buffer.seek(0)
