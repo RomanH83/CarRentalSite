@@ -97,8 +97,6 @@ class CreateOrderView(LoginRequiredMixin, CreateView):
         initial = super().get_initial()
         initial = initial.copy()
         initial['start_date'] = self.request.session.get('start_date')
-        print(initial['start_date'])
-        print(type(initial['start_date']))
         initial['return_date'] = self.request.session.get('return_date')
         return initial
 

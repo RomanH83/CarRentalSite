@@ -1,4 +1,10 @@
-from django.core.mail import send_mail
+import io
+from datetime import date
+
+from django.core.mail import EmailMessage
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+
 from carrent import settings
 
 
@@ -14,13 +20,43 @@ def calculate_cost(start_date, return_date, base_price, car_rating):
 
 def send_order_confirmation_mail(recipents_email_list, order):
     host_phone_number = 111222333
-    subject = f"Potwierdzenie zamówienia samochodu {order.car}"
+    subject = f"Potwierdzenie zamowienia samochodu {order.car}"
     message = f"Witaj {order.client.first_name} {order.client.last_name} \n" \
-              f"Dziękujemy za złożenie zamówienia na wynajem auta {order.car} \n" \
-              f"Rozpoczęcie najmu: {order.start_date} \n" \
+              f"Dziekujemy za zlozenie zamowienia na wynajem auta {order.car} \n" \
+              f"Rozpoczecie najmu: {order.start_date} \n" \
               f"Zwrot samochodu: {order.return_date} \n" \
               f"\n" \
-              f"W razie pytań lub problemów prosimy o kontakt pod {host_phone_number}"
+              f"W razie pytan lub problemow prosimy o kontakt pod {host_phone_number}"
 
     senders_email = settings.EMAIL_HOST_USER
-    send_mail(subject, message, senders_email, recipents_email_list, fail_silently=True)
+    attachment_pdf = create_pdf_from_order(message, order)
+    email_temp = EmailMessage(subject, message, senders_email, recipents_email_list)
+    email_temp.attach('order_detail.pdf', attachment_pdf, 'application/pdf')
+    email_temp.send(fail_silently=True)
+
+
+def create_pdf_from_order(message, order):
+    buffer = io.BytesIO()
+    temp_pdf = canvas.Canvas(buffer, pagesize=A4)
+
+    message_lines = message.split('\n')
+    base_y = 800
+    temp_pdf.setFont('Times-Roman', 16)
+    image_link_root = str(settings.BASE_DIR)
+    image_link = image_link_root + order.car.car_image.url
+
+
+    for line in message_lines:
+        temp_pdf.drawString(30, base_y, line)
+        base_y -= 15
+
+    base_y -= 250
+    temp_pdf.drawImage(image_link, 150, base_y, 320, 240, preserveAspectRatio=True)
+    temp_pdf.drawString(30, 30, f'generated on {date.today()} by CarRental Bagniaki incorporated')
+    temp_pdf.showPage()
+    temp_pdf.save()
+    buffer.seek(0)
+    pdf_file = buffer.getvalue()
+    buffer.close()
+    return pdf_file
+
