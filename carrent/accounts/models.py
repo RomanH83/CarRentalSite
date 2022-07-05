@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
-from carrentapp.models import Order, BaseUserDiscount
+import carrentapp.models
 
 
 class AccountManagerCustom(BaseUserManager):
@@ -131,8 +131,8 @@ class UserCustom(AbstractBaseUser):
 
     @property
     def get_user_discount(self):
-        base = BaseUserDiscount.objects.last()
-        queryset = Order.objects.filter(client=self.pk).filter(order_length__gte=base.min_order_length)
+        base = carrentapp.models.BaseUserDiscount.objects.last()
+        queryset = carrentapp.models.Order.objects.filter(client=self.pk).filter(order_length__gte=base.min_order_length)
         queryset_lenght = queryset.count()
         discount_multiplier = queryset_lenght // base.orders_per_tick
         discount = discount_multiplier * base.increment_per_tick
