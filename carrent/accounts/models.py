@@ -1,6 +1,7 @@
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db import models
 
+import carrentapp.models
 
 
 class AccountManagerCustom(BaseUserManager):
@@ -45,7 +46,7 @@ class AccountManagerCustom(BaseUserManager):
             addr_street=addr_street,
             addr_post_code=addr_post_code,
             mobile_nr=mobile_nr
-            )
+        )
 
         user.set_password(password)
         user.save(using=self._db)
@@ -84,7 +85,6 @@ class AccountManagerCustom(BaseUserManager):
 
 
 class UserCustom(AbstractBaseUser):
-
     email = models.EmailField(verbose_name="Email", max_length=50, unique=True)
     username = models.CharField(verbose_name="Nazwa uzytkownika", max_length=25, unique=True)
     join_date = models.DateTimeField(verbose_name="Data dolaczenia", auto_now_add=True)
@@ -115,6 +115,7 @@ class UserCustom(AbstractBaseUser):
                        'addr_post_code',
                        'mobile_nr'
                        ]
+
     class Meta:
         verbose_name = "Uzytkownik"
         verbose_name_plural = "Uzytkownicy"
@@ -127,3 +128,12 @@ class UserCustom(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+    @property
+    def get_user_discount(self):
+        base = carrentapp.models.BaseUserDiscount.objects.last()
+        queryset = carrentapp.models.Order.objects.filter(client=self.pk).filter(order_length__gte=base.min_order_length)
+        queryset_lenght = queryset.count()
+        discount_multiplier = queryset_lenght // base.orders_per_tick
+        discount = discount_multiplier * base.increment_per_tick
+        return discount if discount < base.max_discount else base.max_discount

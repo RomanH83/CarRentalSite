@@ -11,7 +11,7 @@ from django.views.generic import CreateView, ListView, FormView, UpdateView, Del
 
 from carrentapp.forms import OrderDateForm, OrderCreationForm, OrderUpdateForm, OrderUpdateFormBlocked
 from carrentapp.mixins import RestrictOwnerAccessMixin
-from carrentapp.models import BasePrice, Car, Order
+from carrentapp.models import BasePrice, Car, Order, TimeDiscount, CarDiscount
 from carrentapp.utilities import calculate_cost, send_order_confirmation_mail
 from carrentapp.validators import order_date_validator, if_entries_collide_error
 
@@ -57,6 +57,14 @@ class PickOrderDate(LoginRequiredMixin, FormView):
 
         base_price = BasePrice.objects.last().base_price
         car = Car.objects.get(id=self.kwargs['pk'])
+        time_discount = TimeDiscount.objects.last()
+        car_discount_obj = CarDiscount.objects.last()
+        if car_discount_obj.car_brand == car.brand:
+            car_discount = car_discount_obj.brand_discount
+        else:
+            car_discount = 0
+        user = self.request.user
+        user_discount = user.get_user_discount
         self.request.session['car_id'] = car.id
         self.request.session['car_image'] = car.car_image.url
         self.request.session['car_brand'] = car.brand.brand_name
@@ -74,7 +82,7 @@ class PickOrderDate(LoginRequiredMixin, FormView):
         self.request.session['total_cost'] = calculate_cost(start_date_datetime,
                                                             return_date_datetime,
                                                             base_price,
-                                                            car.rating)
+                                                            car.rating, user_discount, time_discount, car_discount)
 
         errors = order_date_validator(start_date_datetime, return_date_datetime)
         if errors:
@@ -113,6 +121,7 @@ class CreateOrderView(LoginRequiredMixin, CreateView):
         if errors:
             return redirect('car_list')
 
+        objct.rent_cost = self.request.session.get('total_cost')
         objct.save()
 
         order = Order.objects.get(client=objct.client, car=objct.car, start_date=objct.start_date, return_date=objct.return_date)
