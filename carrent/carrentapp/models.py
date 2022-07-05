@@ -71,6 +71,7 @@ class Order(models.Model):
     rent_cost = models.IntegerField(verbose_name="Koszt wynajmu", blank=True, null=True)
     start_date = models.DateField(verbose_name="Start")
     return_date = models.DateField(verbose_name="Zwrot")
+    order_length = models.IntegerField(verbose_name="Długość wypożyczenia")
     kilometers_traveled = models.IntegerField(verbose_name="Przejechane kilometry", default=0)
     order_datetime = models.DateTimeField(verbose_name="Powstanie zamówienia", auto_now_add=True)
     last_modified = models.DateTimeField(verbose_name="Edytowane", auto_now=True)
@@ -110,4 +111,22 @@ class Order(models.Model):
 
     def save(self, *args, **kwarg):
         self.rent_cost = self.cost_calculator
+        self.order_length = self.return_date - self.start_date
         super(Order, self).save(*args, **kwarg)
+
+
+class TimeDiscount(models.Model):
+    month_discount = models.IntegerField(verbose_name="Zniżka miesięczna")
+    two_weeks_discount = models.IntegerField(verbose_name="Zniżka dwutygodniowa")
+
+
+class CarDiscount(models.Model):
+    car_brand = models.ForeignKey(CarBrand, on_delete=models.PROTECT, null=True)
+    brand_discount = models.IntegerField(verbose_name="Zniżka na marke")
+
+
+class BaseUserDiscount(models.Model):
+    max_discount = models.IntegerField(verbose_name="Maksymalna zniżka")
+    increment_per_tick = models.IntegerField(verbose_name="Skok zniżki")
+    orders_per_tick = models.IntegerField(verbose_name="Co ile zamówień skok")
+    min_order_length = models.IntegerField(verbose_name="Minimalna długość zamówienia")
