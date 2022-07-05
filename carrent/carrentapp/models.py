@@ -71,7 +71,7 @@ class Order(models.Model):
     rent_cost = models.IntegerField(verbose_name="Koszt wynajmu", blank=True, null=True)
     start_date = models.DateField(verbose_name="Start")
     return_date = models.DateField(verbose_name="Zwrot")
-    order_length = models.IntegerField(verbose_name="Długość wypożyczenia")
+    order_length = models.IntegerField(verbose_name="Długość wypożyczenia", default=0)
     kilometers_traveled = models.IntegerField(verbose_name="Przejechane kilometry", default=0)
     order_datetime = models.DateTimeField(verbose_name="Powstanie zamówienia", auto_now_add=True)
     last_modified = models.DateTimeField(verbose_name="Edytowane", auto_now=True)
@@ -89,11 +89,6 @@ class Order(models.Model):
     def __str__(self):
         return f'{self.client.email} {self.car.plate_number} =>ID {self.id}'
 
-    @property
-    def cost_calculator(self):
-        nr_of_days = self.return_date - self.start_date
-        price_per_day = self.base_price.base_price * self.car.rating
-        return nr_of_days.days * price_per_day
 
     @property
     def is_future(self):
@@ -110,8 +105,7 @@ class Order(models.Model):
             return False
 
     def save(self, *args, **kwarg):
-        self.rent_cost = self.cost_calculator
-        self.order_length = self.return_date - self.start_date
+        self.order_length = (self.return_date - self.start_date).days
         super(Order, self).save(*args, **kwarg)
 
 

@@ -8,14 +8,21 @@ from reportlab.pdfgen import canvas
 from carrent import settings
 
 
-def calculate_cost(start_date, return_date, base_price, car_rating):
+def calculate_cost(start_date, return_date, base_price, car_rating, user_discount, time_discount_object, car_discount=0):
     """ Takes 2 datetime.date objects base price and a multiplier (rating) and returns total cost (int)
 
         Mostly for order cost calculation
     """
     nr_of_days = return_date - start_date
-    price_per_day = int(base_price * car_rating)
-    return nr_of_days.days * price_per_day
+    if 14 <= nr_of_days.days < 30:
+        time_discount = time_discount_object.two_weeks_discount
+    elif nr_of_days.days >= 30:
+        time_discount = time_discount_object.month_discount
+    else:
+        time_discount = 0
+
+    #price_per_day = int(base_price * car_rating)
+    return nr_of_days.days * base_price * (car_rating - (car_rating * (car_discount / 100))) * (1 - (user_discount / 100)) * (1 - (time_discount / 100))
 
 
 def send_order_confirmation_mail(recipents_email_list, order):
