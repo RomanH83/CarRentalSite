@@ -114,7 +114,7 @@ class TimeDiscount(models.Model):
     two_weeks_discount = models.IntegerField(verbose_name="Zniżka dwutygodniowa")
 
 
-class CarDiscount(models.Model):
+class BrandDiscount(models.Model):
     car_brand = models.ForeignKey(CarBrand, on_delete=models.PROTECT, null=True)
     brand_discount = models.IntegerField(verbose_name="Zniżka na marke")
 

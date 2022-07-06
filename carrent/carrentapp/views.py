@@ -11,7 +11,7 @@ from django.views.generic import CreateView, ListView, FormView, UpdateView, Del
 
 from carrentapp.forms import OrderDateForm, OrderCreationForm, OrderUpdateForm, OrderUpdateFormBlocked
 from carrentapp.mixins import RestrictOwnerAccessMixin
-from carrentapp.models import BasePrice, Car, Order, TimeDiscount, CarDiscount
+from carrentapp.models import BasePrice, Car, Order, TimeDiscount, BrandDiscount
 from carrentapp.utilities import calculate_cost, send_order_confirmation_mail
 from carrentapp.validators import order_date_validator, if_entries_collide_error
 
@@ -58,7 +58,7 @@ class PickOrderDate(LoginRequiredMixin, FormView):
         base_price = BasePrice.objects.last().base_price
         car = Car.objects.get(id=self.kwargs['pk'])
         time_discount = TimeDiscount.objects.last()
-        car_discount_obj = CarDiscount.objects.last()
+        car_discount_obj = BrandDiscount.objects.last()
         if car_discount_obj.car_brand == car.brand:
             car_discount = car_discount_obj.brand_discount
         else:
