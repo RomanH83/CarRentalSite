@@ -4,6 +4,8 @@ from django.db import models
 
 from accounts.models import UserCustom
 from carrentapp.enums import CarEngineType, CarGearboxType, OrderStatus
+from carrentapp.utilities import calculate_cost
+
 
 class CarBrand(models.Model):
     brand_name = models.CharField(max_length=50, verbose_name="Marka", unique=True)
@@ -89,6 +91,22 @@ class Order(models.Model):
     def __str__(self):
         return f'{self.client.email} {self.car.plate_number} =>ID {self.id}'
 
+    @property
+    def cost_calculator(self):
+        base_price = self.base_price.base_price
+        car_rating = self.car.rating
+        time_discount = TimeDiscount.objects.last()
+        car_discount_obj = BrandDiscount.objects.last()
+        if car_discount_obj.car_brand == self.car.brand:
+            car_discount = car_discount_obj.brand_discount
+        else:
+            car_discount = 0
+        user_discount = self.client.get_user_discount
+        cost = calculate_cost(self.start_date,
+                              self.return_date,
+                              base_price,
+                              car_rating, user_discount, time_discount, car_discount)
+        return cost
 
     @property
     def is_future(self):
@@ -105,6 +123,7 @@ class Order(models.Model):
             return False
 
     def save(self, *args, **kwarg):
+        self.rent_cost = self.cost_calculator
         self.order_length = (self.return_date - self.start_date).days
         super(Order, self).save(*args, **kwarg)
 
@@ -113,10 +132,24 @@ class TimeDiscount(models.Model):
     month_discount = models.IntegerField(verbose_name="Zniżka miesięczna")
     two_weeks_discount = models.IntegerField(verbose_name="Zniżka dwutygodniowa")
 
+    class Meta:
+        verbose_name = "Zniżka czasowa"
+        verbose_name_plural = "Zniżka czasowa"
 
-class CarDiscount(models.Model):
+    def __str__(self):
+        return 'Zniżka czasowa'
+
+
+class BrandDiscount(models.Model):
     car_brand = models.ForeignKey(CarBrand, on_delete=models.PROTECT, null=True)
     brand_discount = models.IntegerField(verbose_name="Zniżka na marke")
+
+    class Meta:
+        verbose_name = "Zniżka marki"
+        verbose_name_plural = "Zniżka marki"
+
+    def __str__(self):
+        return f'Zniżka czasowa {self.car_brand}'
 
 
 class BaseUserDiscount(models.Model):
@@ -124,3 +157,10 @@ class BaseUserDiscount(models.Model):
     increment_per_tick = models.IntegerField(verbose_name="Skok zniżki")
     orders_per_tick = models.IntegerField(verbose_name="Co ile zamówień skok")
     min_order_length = models.IntegerField(verbose_name="Minimalna długość zamówienia")
+
+    class Meta:
+        verbose_name = "Zniżka klienta"
+        verbose_name_plural = "Zniżka klienta"
+
+    def __str__(self):
+        return 'Zniżka klienta'
