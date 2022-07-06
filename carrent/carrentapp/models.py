@@ -132,10 +132,24 @@ class TimeDiscount(models.Model):
     month_discount = models.IntegerField(verbose_name="Zniżka miesięczna")
     two_weeks_discount = models.IntegerField(verbose_name="Zniżka dwutygodniowa")
 
+    class Meta:
+        verbose_name = "Zniżka czasowa"
+        verbose_name_plural = "Zniżka czasowa"
+
+    def __str__(self):
+        return 'Zniżka czasowa'
+
 
 class BrandDiscount(models.Model):
     car_brand = models.ForeignKey(CarBrand, on_delete=models.PROTECT, null=True)
     brand_discount = models.IntegerField(verbose_name="Zniżka na marke")
+
+    class Meta:
+        verbose_name = "Zniżka marki"
+        verbose_name_plural = "Zniżka marki"
+
+    def __str__(self):
+        return f'Zniżka czasowa {self.car_brand}'
 
 
 class BaseUserDiscount(models.Model):
@@ -143,3 +157,10 @@ class BaseUserDiscount(models.Model):
     increment_per_tick = models.IntegerField(verbose_name="Skok zniżki")
     orders_per_tick = models.IntegerField(verbose_name="Co ile zamówień skok")
     min_order_length = models.IntegerField(verbose_name="Minimalna długość zamówienia")
+
+    class Meta:
+        verbose_name = "Zniżka klienta"
+        verbose_name_plural = "Zniżka klienta"
+
+    def __str__(self):
+        return 'Zniżka klienta'
