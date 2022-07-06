@@ -21,7 +21,6 @@ def calculate_cost(start_date, return_date, base_price, car_rating, user_discoun
     else:
         time_discount = 0
 
-    #price_per_day = int(base_price * car_rating)
     return nr_of_days.days * base_price * (car_rating - (car_rating * (car_discount / 100))) * (1 - (user_discount / 100)) * (1 - (time_discount / 100))
 
 

@@ -121,7 +121,6 @@ class CreateOrderView(LoginRequiredMixin, CreateView):
         if errors:
             return redirect('car_list')
 
-        objct.rent_cost = self.request.session.get('total_cost')
         objct.save()
 
         order = Order.objects.get(client=objct.client, car=objct.car, start_date=objct.start_date, return_date=objct.return_date)
