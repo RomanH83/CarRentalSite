@@ -1,13 +1,13 @@
 from django import forms
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.models import User
-from django.db.transaction import atomic
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
+from django.db.transaction import atomic
+
 from .validators import validation_age
-import re
 
 
 class UserCreationForm(forms.ModelForm):
@@ -161,7 +161,7 @@ class UpdateUserForm(forms.ModelForm):
     last_name = forms.CharField(required=True,
                                 widget=forms.TextInput(attrs={'class': 'form-control',
                                                            'style': 'font-size: large'}))
-    birthdate = forms.DateField(required=True,
+    birthdate = forms.DateField(validators=[validation_age], required=True,
                                 widget=forms.TextInput(attrs={'class': 'form-control',
                                                            'style': 'font-size: large'}))
     addr_city = forms.CharField(required=True,

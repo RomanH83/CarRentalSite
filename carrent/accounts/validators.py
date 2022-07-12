@@ -1,8 +1,9 @@
 #self created file to store custom validators
 
-from django.core.exceptions import ValidationError
-from django.shortcuts import redirect
 from datetime import date
+
+from django.core.exceptions import ValidationError
+
 
 def validation_age(birthdate):
     date_today = date.today()
