@@ -1,7 +1,4 @@
-#self created file to store custom validators
-
 from datetime import date
-
 from django.core.exceptions import ValidationError
 
 
@@ -13,4 +10,3 @@ def validation_age(birthdate):
         raise ValidationError("Niestety nie jesteś pełnoletni/nia i nie możesz skorzystać z naszych usług")
     elif birthdate > date_today:
         raise ValidationError("Nieprawidłowa data urodzenia")
-

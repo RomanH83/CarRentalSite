@@ -1,20 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView, \
+    PasswordResetDoneView, PasswordResetCompleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
 
+from carrent import settings
 from .forms import LoginForm, RegistrationForm, UpdateUserForm
-
-
-class CustomLoginView(LoginView):
-    form_class = LoginForm
-
-    def get_success_url(self):
-        return reverse('main')
 
 
 class RegisterView(View):
@@ -35,6 +29,13 @@ class RegisterView(View):
             return redirect(to='main')
 
         return render(request, self.template_name, {'form': form})
+
+
+class CustomLoginView(LoginView):
+    form_class = LoginForm
+
+    def get_success_url(self):
+        return reverse('main')
 
 
 class UpdateProfileUserView(LoginRequiredMixin, View):
@@ -59,3 +60,22 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     success_message = "Hasło zostało zmienione"
     success_url = reverse_lazy('main')
 
+
+class ResetPasswordView(PasswordResetView):
+    html_email_template_name = 'accounts/password_reset_email.html'
+    template_name = 'accounts/reset_password.html'
+    from_email = settings.EMAIL_HOST_USER
+    success_url = reverse_lazy('password_reset_splash')
+
+
+class ResetPasswordSplashView(PasswordResetDoneView):
+    template_name = 'accounts/reset_password_splash.html'
+
+
+class ResetPasswordConfirmView(PasswordResetConfirmView):
+    template_name = 'accounts/reset_password_confirm.html'
+    success_url = reverse_lazy('password_reset_finish')
+
+
+class ResetPasswordFinishView(PasswordResetCompleteView):
+    template_name = 'accounts/reset_password_finish.html'
