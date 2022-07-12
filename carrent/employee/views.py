@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, ListView, UpdateView
 from carrentapp.models import Order
 from carrentapp.enums import OrderStatus
 from employee.mixins import StaffStatusRequiredMixin
-from employee.validators import new_mileage_validator
+from employee.validators import new_mileage_validator, status_check
 
 
 class EmployeeHomeView(StaffStatusRequiredMixin, TemplateView):
@@ -99,9 +99,16 @@ class CarReturnDetailView(StaffStatusRequiredMixin, UpdateView):
         car = order.car
         old_mileage = car.car_mileage
         new_mileage = int(self.request.POST.get('kilometers_traveled'))
+
         errors = new_mileage_validator(new_mileage, old_mileage)
         if errors:
             return redirect('car_return_detail_msg', pk=self.kwargs['pk'], msg=errors)
+
+        status = self.request.POST.get('status')
+        errors = status_check(status)
+        if errors:
+            return redirect('car_return_detail_msg', pk=self.kwargs['pk'], msg=errors)
+
         car.car_mileage = new_mileage
         car.save()
         objct.kilometers_traveled = new_mileage - old_mileage
