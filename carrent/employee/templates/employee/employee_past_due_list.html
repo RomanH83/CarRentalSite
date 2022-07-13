@@ -24,7 +24,7 @@
         </thead>
         <body>
 
-        {%  for order in order_list  %}
+        {%  for order in page_obj  %}
              {% if order.issue_resolved == True  %}
              <tr class="table-success">
              {% else %}
@@ -44,8 +44,8 @@
         </body>
 
     </table>
-    {% endif %}
     {% include 'carrentapp/paginator.html' %}
+    {% endif %}
     <div style="height:150vh"></div>
 </div>
 {% endblock %}

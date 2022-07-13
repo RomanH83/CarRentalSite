@@ -76,8 +76,29 @@ class CarReturnListView(StaffStatusRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         fltr = OrderFilter(self.request.GET, queryset=self.get_queryset())
         fltr_dict = {'filter': fltr}
+
+        page_size = self.get_paginate_by(fltr.queryset)
+        if page_size:
+            paginator, page, queryset, is_paginated = self.paginate_queryset(
+                fltr.queryset, page_size
+            )
+            context = {
+                "paginator": paginator,
+                "page_obj": page,
+                "is_paginated": is_paginated,
+                "object_list": queryset,
+            }
+        else:
+            context = {
+                "paginator": None,
+                "page_obj": None,
+                "is_paginated": False,
+                "object_list": fltr.queryset,
+            }
+
         kwargs.setdefault('view', self)
         kwargs.update(fltr_dict)
+        kwargs.update(context)
         return kwargs
 
 
