@@ -43,7 +43,7 @@
         </thead>
         <body>
 
-        {%  for order in filter.qs  %}
+        {%  for order in page_obj  %}
              <tr class="table-secondary">
                  <td> {{ order.client.email }} </td>
                  <td> {{ order.car.brand }} </td>
@@ -58,8 +58,8 @@
         </body>
 
     </table>
-    {% endif %}
     {% include 'carrentapp/paginator.html' %}
+    {% endif %}
     <div style="height:150vh"></div>
 </div>
 {% endblock %}

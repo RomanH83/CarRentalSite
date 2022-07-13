@@ -6,11 +6,9 @@
                 <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-dark border-secondary"><i class="bi bi-arrow-left-short fa-2x"></i></a>
             </div>
         {% endif %}
-        {% if page_obj.number %}
         <span class="current fs-2">
-             Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
+            Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
         </span>
-        {% endif %}
         {% if page_obj.has_next %}
             <div class="btn-group me-2" role="group" aria-label="First group">
                 <a href="?page={{ page_obj.next_page_number }}" class="btn btn-dark border-secondary"><i class="bi bi-arrow-right-short fa-2x"></i></a>
