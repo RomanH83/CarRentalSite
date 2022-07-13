@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <body>
-            {%  for order in order_list  %}
+            {%  for order in page_obj  %}
                <tr class="table-primary">
                     <td> {{ order.car.brand }}  </td>
                     <td> {{ order.car.car_model }}  </td>
@@ -36,6 +36,7 @@
         </body>
     </table>
     {% endif %}
+{% include 'carrentapp/paginator.html' %}
 </div>
 <div style="height:150vh"></div>
 </div>

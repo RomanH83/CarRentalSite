@@ -17,6 +17,7 @@ class EmployeeHomeView(StaffStatusRequiredMixin, TemplateView):
 class PastDueListView(StaffStatusRequiredMixin, ListView):
     model = Order
     template_name = 'employee/employee_past_due_list.html'
+    paginate_by = 10
 
     def get_queryset(self):
         orders = Order.objects.filter(return_date__lt=date.today(), status=OrderStatus.AKTYWNY).order_by('issue_resolved')
@@ -66,6 +67,7 @@ class OrderFilter(django_filters.FilterSet):
 class CarReturnListView(StaffStatusRequiredMixin, ListView):
     model = Order
     template_name = 'employee/employee_car_return.html'
+    paginate_by = 10
 
     def get_queryset(self):
         orders = Order.objects.filter(return_date=date.today(), status=OrderStatus.AKTYWNY)

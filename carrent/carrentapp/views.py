@@ -236,6 +236,7 @@ class ActualOrderView(LoginRequiredMixin, ListView):
 class HistoryOrderView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'carrentapp/order_history.html'
+    paginate_by = 10
 
     def get_queryset(self):
         qs = Order.objects.filter(return_date__lt=datetime.date.today(), client=self.request.user).select_related('car')
