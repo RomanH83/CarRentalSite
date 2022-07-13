@@ -6,9 +6,12 @@
             <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
         </section>
 <div class="container h-100 d-flex flex-column align-items-center text-dark text-center">
-    {% if order_list.count < 1 %}
+    {% if filter.qs.count < 1 %}
         <div style="height:15vh"></div>
         <h2>Brak wyników do wyświetlenia</h2>
+        <div class="col-sm-2 d-grid mt-2">
+            <a href="{% url 'car_return' %}" class="btn btn-success btn-lg bg-gradient btn-block fs-2">Powrót</a>
+        </div>
     {% else %}
         <section class="car_view">
             <section class="car_table">
