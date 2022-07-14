@@ -77,10 +77,10 @@ class CarReturnListView(StaffStatusRequiredMixin, ListView):
         fltr = OrderFilter(self.request.GET, queryset=self.get_queryset())
         fltr_dict = {'filter': fltr}
 
-        page_size = self.get_paginate_by(fltr.queryset)
+        page_size = self.get_paginate_by(fltr.qs)
         if page_size:
             paginator, page, queryset, is_paginated = self.paginate_queryset(
-                fltr.queryset, page_size
+                fltr.qs, page_size
             )
             context = {
                 "paginator": paginator,
@@ -93,8 +93,12 @@ class CarReturnListView(StaffStatusRequiredMixin, ListView):
                 "paginator": None,
                 "page_obj": None,
                 "is_paginated": False,
-                "object_list": fltr.queryset,
+                "object_list": fltr.qs,
             }
+
+        _request_copy = self.request.GET.copy()
+        parameters = _request_copy.pop('page', True) and _request_copy.urlencode()
+        context['parameters'] = parameters
 
         kwargs.setdefault('view', self)
         kwargs.update(fltr_dict)
