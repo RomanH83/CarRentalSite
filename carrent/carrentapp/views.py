@@ -30,7 +30,14 @@ class CarListView(FilterView):
     model = Car
     template_name = 'carrentapp/car_list.html'
     filterset_class = CarFilter
+    paginate_by = 9
 
+    def get_context_data(self, *args, **kwargs):
+        _request_copy = self.request.GET.copy()
+        parameters = _request_copy.pop('page', True) and _request_copy.urlencode()
+        context = super().get_context_data(*args, **kwargs)
+        context['parameters'] = parameters
+        return context
 
 # class CarListView(ListView):
 #

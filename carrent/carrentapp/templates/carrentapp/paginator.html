@@ -2,8 +2,8 @@
     <span class="step-links">
         {% if page_obj.has_previous %}
             <div class="btn-group me-2" role="group" aria-label="First group">
-                <a href="?page=1" class="btn btn-dark border-secondary"><i class="bi bi-chevron-bar-left fa-2x"></i></a>
-                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-dark border-secondary"><i class="bi bi-arrow-left-short fa-2x"></i></a>
+                <a href="?page=1&{{ parameters }}" class="btn btn-dark border-secondary"><i class="bi bi-chevron-bar-left fa-2x"></i></a>
+                <a href="?page={{ page_obj.previous_page_number }}&{{ parameters }}" class="btn btn-dark border-secondary"><i class="bi bi-arrow-left-short fa-2x"></i></a>
             </div>
         {% endif %}
         <span class="current fs-2">
@@ -11,8 +11,8 @@
         </span>
         {% if page_obj.has_next %}
             <div class="btn-group me-2" role="group" aria-label="First group">
-                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-dark border-secondary"><i class="bi bi-arrow-right-short fa-2x"></i></a>
-                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-dark border-secondary"><i class="bi bi-chevron-bar-right fa-2x"></i></a>
+                <a href="?page={{ page_obj.next_page_number }}&{{ parameters }}" class="btn btn-dark border-secondary"><i class="bi bi-arrow-right-short fa-2x"></i></a>
+                <a href="?page={{ page_obj.paginator.num_pages }}&{{ parameters }}" class="btn btn-dark border-secondary"><i class="bi bi-chevron-bar-right fa-2x"></i></a>
             </div>
         {% endif %}
     </span>
