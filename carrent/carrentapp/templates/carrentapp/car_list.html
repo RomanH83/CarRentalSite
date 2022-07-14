@@ -36,38 +36,38 @@
 <div style="height:5vh"></div>
 <section class="container">
     <div class="row">
-
-    {% for obj in filter.qs %}
-        <div class="col-md-6 col-lg-4">
-            <div class="shadow card mb-3 bg-dark bg-gradient">
-                <a href="{% url 'car_detail' obj.id %}"><img class="card-img-top" src="{{ obj.car_image.url }}"></a>
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <table class="table table-responsive table-bordered table-hover table-striped table-dark">
-                            <tr>
-                                <td>Marka</td>
-                                <td>{{ obj.brand }}</td>
-                            </tr>
-                            <tr>
-                                <td>Model</td>
-                                <td>{{ obj.car_model }}</td>
-                            </tr>
-                            <tr>
-                                <td>Skrzynia biegów</td>
-                                <td>{{ obj.get_gearbox_type_display }}</td>
-                            </tr>
-                            <tr>
-                                <td>Liczba miejsc</td>
-                                <td>{{ obj.number_of_seats }}</td>
-                            </tr>
-                        </table>
-                        <a href="{% url 'car_detail' obj.id %}" class="shadow btn btn-outline-light px-4" style="font-size: large" role="button">Wypożycz</a>
+        {% for obj in page_obj %}
+            <div class="col-md-6 col-lg-4">
+                <div class="shadow card mb-3 bg-dark bg-gradient">
+                    <a href="{% url 'car_detail' obj.id %}"><img class="card-img-top" src="{{ obj.car_image.url }}"></a>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+                                <tr>
+                                    <td>Marka</td>
+                                    <td>{{ obj.brand }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Model</td>
+                                    <td>{{ obj.car_model }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Skrzynia biegów</td>
+                                    <td>{{ obj.get_gearbox_type_display }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Liczba miejsc</td>
+                                    <td>{{ obj.number_of_seats }}</td>
+                                </tr>
+                            </table>
+                            <a href="{% url 'car_detail' obj.id %}" class="shadow btn btn-outline-light px-4" style="font-size: large" role="button">Wypożycz</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
     </div>
+{% include 'carrentapp/paginator.html' %}
 </section>
 <div style="height:50vh"></div>
 
