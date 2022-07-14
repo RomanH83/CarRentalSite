@@ -67,7 +67,7 @@ class OrderFilter(django_filters.FilterSet):
 class CarReturnListView(StaffStatusRequiredMixin, ListView):
     model = Order
     template_name = 'employee/employee_car_return.html'
-    paginate_by = 1
+    paginate_by = 10
 
     def get_queryset(self):
         orders = Order.objects.filter(return_date=date.today(), status=OrderStatus.AKTYWNY)
@@ -95,6 +95,10 @@ class CarReturnListView(StaffStatusRequiredMixin, ListView):
                 "is_paginated": False,
                 "object_list": fltr.qs,
             }
+
+        _request_copy = self.request.GET.copy()
+        parameters = _request_copy.pop('page', True) and _request_copy.urlencode()
+        context['parameters'] = parameters
 
         kwargs.setdefault('view', self)
         kwargs.update(fltr_dict)
