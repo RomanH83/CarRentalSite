@@ -66,7 +66,7 @@
         </tr>
         <tr>
             <td>Rodzaj skrzyni</td>
-            <td>{{ order.car.gearbox_type }}</td>
+            <td>{{ order.car.get_gearbox_type_display }}</td>
         </tr>
         <tr>
 
@@ -83,7 +83,7 @@
                 <td style="color: crimson "> {{ view.kwargs.msg }}</td>
             </tr>
             {% endif %}
-            {% if order.issue_resolved != None  %}
+            {% if order.issue_resolved == True   %}
                  <h2>Potwierdzenie zwrotu</h2>
                  <tr>
                      <td>Status </td>
@@ -99,7 +99,6 @@
                 </tr>
         </table>
                 <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź</button>
-                <p style="visibility: hidden">{{ form.issue_resolved }}</p>
             {% else %}
                 <h2>Status problemu</h2>
                 <tr>
@@ -108,12 +107,7 @@
                 </tr>
         </table>
                 <button name="dodaj" class="btn btn-success btn-lg">Zatwierdź</button>
-                <p style="visibility: hidden">{{ form.status }}</p>
-                <p style="visibility: hidden">{{ form.kilometers_traveled }}</p>
             {% endif %}
-
-
-
         {% csrf_token %}
         </form>
     </div>
