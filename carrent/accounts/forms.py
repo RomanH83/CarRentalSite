@@ -14,8 +14,10 @@ from .validators import validation_age
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control',
+                                                                                    'style': 'font-size: large'}))
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput(attrs={'class': 'form-control',
+                                                                                            'style': 'font-size: large'}))
 
     class Meta:
         model = get_user_model()
@@ -28,7 +30,7 @@ class UserCreationForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise ValidationError("Passwords don't match")
+            raise ValidationError("Hasła nie są zgodne")
         return password2
 
     def save(self, commit=True):
@@ -79,30 +81,37 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True,
                              widget=forms.TextInput(attrs={'placeholder': 'Email',
                                                            'class': 'form-control',
+                                                           'style': 'font-size: large'
                                                            }))
     username = forms.CharField(required=True,
                                widget=forms.TextInput(attrs={'placeholder': 'Nazwa użytkownika',
                                                              'class': 'form-control',
+                                                             'style': 'font-size: large'
                                                              }))
     first_name = forms.CharField(required=True,
                                  widget=forms.TextInput(attrs={'placeholder': 'Imię',
                                                                'class': 'form-control',
+                                                               'style': 'font-size: large'
                                                                }))
     last_name = forms.CharField(required=True,
                                 widget=forms.TextInput(attrs={'placeholder': 'Nazwisko',
                                                               'class': 'form-control',
+                                                              'style': 'font-size: large'
                                                               }))
     birthdate = forms.DateField(validators=[validation_age], required=True,
                                 widget=forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD',
                                                               'class': 'form-control',
+                                                              'style': 'font-size: large'
                                                               }))
     addr_city = forms.CharField(required=True,
                                 widget=forms.TextInput(attrs={'placeholder': 'Miasto',
                                                               'class': 'form-control',
+                                                              'style': 'font-size: large'
                                                               }))
     addr_street = forms.CharField(required=True,
                                   widget=forms.TextInput(attrs={'placeholder': 'Ulica',
                                                                 'class': 'form-control',
+                                                                'style': 'font-size: large'
                                                                 }))
     addr_post_code = forms.CharField(required=True,
                                      validators=[
@@ -113,6 +122,7 @@ class RegistrationForm(UserCreationForm):
                                      ],
                                      widget=forms.TextInput(attrs={'placeholder': 'Kod pocztowy',
                                                                    'class': 'form-control',
+                                                                   'style': 'font-size: large'
                                                                    }))
     mobile_nr = forms.CharField(required=True,
                                 validators=[
@@ -123,6 +133,7 @@ class RegistrationForm(UserCreationForm):
                                 ],
                                 widget=forms.TextInput(attrs={'placeholder': 'Numer telefonu',
                                                               'class': 'form-control',
+                                                              'style': 'font-size: large'
                                                               }))
 
     class Meta:

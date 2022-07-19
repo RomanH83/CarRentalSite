@@ -2,131 +2,94 @@
 {% extends 'carrentapp/base.html' %}
 {% block title %} Formularz rejestracyjny {% endblock title%}
 {% block section_one %}
-    <div class="form-content my-3 p-3">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <div class="card shadow-lg border-0 rounded-lg mt-0 mb-5">
-                        <div class="card-header justify-content-center">
-                            <h3 class="font-weight-light my-4 text-center">Tworzenie konta klienta</h3>
-                        </div>
-                        <div class="card-body">
-                            <form method="POST">
-                                {% csrf_token %}
-                                {% if form.errors %}
-                                    <div class="alert alert-danger alert-dismissible" role="alert">
-                                        <div id="form_errors">
-                                            {% for key, value in form.errors.items %}
-                                                <strong>{{ value }}</strong>
-                                            {% endfor %}
-                                        </div>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                {% endif %}
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+</svg>
 
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Email</label>
-                                            {{ form.email }}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Nazwa użytkownika</label>
-                                            {{ form.username }}
-                                        </div>
-                                    </div>
-                                </div>
+{% if form.errors %}
+    <section class="car_view">
+        <section class="car_table">
+                <div class="alert alert-dismissible gap-2 bg-dark bg-gradient shadow rounded mb-5 fade show" style="padding-left: 30px">
+                <button type="button" class="btn-close btn-close-white" data-dismiss="alert" aria-label="Close"></button>
+                <table class="table fs-2 table-responsive table-bordered table-hover table-striped table-danger mb-0">
+                    {% for value in form.errors.values %}
+                    <tr>
+                        <td>
+                            <svg class="bi flex-shrink-0 me-2 text-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        </td>
+                        <td>
+                            <strong class="fs-2 text-danger">{{ value.as_text|cut:"* "  }}</strong>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
 
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Imię</label>
-                                            {{ form.first_name }}
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Nazwisko</label>
-                                            {{ form.last_name }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Data urodzenia</label>
-                                            {{ form.birthdate }}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Miasto</label>
-                                            {{ form.addr_city }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Ulica</label>
-                                            {{ form.addr_street }}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Kod pocztowy</label>
-                                            {{ form.addr_post_code }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Telefon</label>
-                                            {{ form.mobile_nr }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Hasło</label>
-                                            <br>
-                                            {{ form.password1 }}
-                                            {{ form.errors.password }}
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="small mb-1">Powtórz hasło</label>
-                                            {{ form.password2 }}
-                                        </div>
-                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group mt-4 mb-0">
-                                    <button type="submit" class="col-md-12 btn btn-dark">Utwórz konto</button><br><br>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-footer text-center">
-                            <div class="small">
-                                <a href="{% url 'login' %}" class="btn btn-dark btn-lg" role="button">Masz już konto? Zaloguj</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
+        </section>
+    </section>
+{% endif %}
+
+<section class="car_view">
+    <section class="car_table">
+        <form method="post" enctype="multipart/form-data" class="d-grid gap-2 bg-dark bg-gradient p-2 shadow rounded">
+                    <table class="table fs-2 table-responsive table-bordered table-hover table-striped table-dark">
+                        <tr>
+                            <td>Email:</td>
+                            <td>{{ form.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>Użytkownik:</td>
+                            <td style="font-size: large">{{ form.username  }}</td>
+                        </tr>
+                        <tr>
+                            <td>Imię:</td>
+                            <td>{{ form.first_name  }}</td>
+                        </tr>
+                        <tr>
+                            <td>Nazwisko:</td>
+                            <td>{{ form.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Data urodzenia:</td>
+                            <td>{{ form.birthdate }}</td>
+                        </tr>
+                        <tr>
+                            <td>Miasto:</td>
+                            <td>{{ form.addr_city  }}</td>
+                        </tr>
+                        <tr>
+                            <td>Ulica:</td>
+                            <td>{{ form.addr_street }}</td>
+                        </tr>
+                        <tr>
+                            <td>Kod pocztowy:</td>
+                            <td>{{ form.addr_post_code }}</td>
+                        </tr>
+                        <tr>
+                            <td>Numer telefonu:</td>
+                            <td>{{ form.mobile_nr }}</td>
+                        </tr>
+                        <tr>
+                            <td>Hasło</td>
+                            <td>{{ form.password1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Powtórz hasło</td>
+                            <td>{{ form.password2}}</td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="btn btn-success btn-lg bg-gradient" style="font-size: large">Utwórz konto</button>
+                    <a href="{% url 'login' %}" class="btn btn-warning btn-lg bg-gradient" role="button" style="font-size: large">Masz już konto? Zaloguj</a>
+                {% csrf_token %}
+                </form>
+    </section>
+</section>
 {% endblock %}

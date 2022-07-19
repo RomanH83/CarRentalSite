@@ -2,18 +2,22 @@
 {% block title %}Wyloguj{% endblock title %}
 {% block section_one %}
 
-    <div class="row justify-content-center">
-        <div class="card" style="width: 35rem;">
-        <div class="card-body" style="text-align: center">
-        <h1 class="card-title">Zostałeś wylogowany</h1>
-        <br><hr><a href="{% url 'login' %}" class="btn btn-dark btn-lg">Zaloguj się ponownie</a>
+<div>
+    <div class="container-sm">
+        <div class="row justify-content-md-center">
+            <div class="col-sm-5">
+                <div class="d-grid gap-0 bg-dark bg-gradient p-2 rounded">
+                <table class="table table-responsive table-bordered table-hover table-dark">
+                    <tr>
+                        <td class="fs-1 text-center">Zostałeś wylogowany</td>
+                    </tr>
+                </table>
+                <a href="{% url 'login' %}" class="btn btn-success btn-lg fs-2">Zaloguj się ponownie</a>
+                </div>
+            </div>
         </div>
     </div>
- </div>
-
-
-
+</div>
 
 <div style="height:200vh"></div>
-</div>
 {% endblock %}
