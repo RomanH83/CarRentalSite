@@ -1,8 +1,8 @@
 {% extends 'carrentapp/base.html' %}
-{% block title %} Strona logowania {% endblock title%}
+{% block sitle_title %} Strona logowania {% endblock sitle_title%}
 {% block section_one %}
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+<svg xmlns="http://www.w3.org/2000/svg" style="color: red">
     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
     </symbol>
@@ -14,15 +14,13 @@
     </symbol>
 </svg>
 
-<div class="view">
-    <div class="form-content my-3 p-3">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-5">
-                    <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
-                        <div class="card-header justify-content-center">
-                          <h3 class="font-weight-light my-1 text-center">Zaloguj</h3>
-                        </div>
+<section class="car_view" style="align-items: start">
+<div class="container-sm">
+    <div class="row justify-content-md-center">
+        <div class="col-sm-5">
+            <form method="POST" novalidate class="d-grid gap-0 bg-dark bg-gradient p-2 rounded">
+                <table class="table table-responsive table-bordered table-hover table-dark">
+                    <tr>
                         {% if form.errors %}
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <div id="form_errors" style="text-align: center">
@@ -31,54 +29,27 @@
                                         <strong>{{ value.as_text|cut:"* " }}</strong><br>
                                     {% endfor %}
                                 </div>
-                                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Zamknij">
-
-                                </button>
+                                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Zamknij"></button>
                             </div>
                         {% endif %}
-                        <div class="card-body">
-                            <form method="POST">
-                                {% csrf_token %}
-                                <div class="form-row">
-                                    <div class="col-md-10 offset-md-1">
-                                        <div class="form-group">
-                                            <label class="mb-1">Email</label>
-                                            {{ form.username }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-10 offset-md-1">
-                                        <div class="form-group">
-                                          <label class="mb-1">Hasło</label>
-                                          {{ form.password }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <br>
-                                    <div class="col-md-10 offset-md-1">
-                                        <div class="form-group mt-0 mb-1">
-                                          <button name="login" class="col-12 btn btn-dark btn-lg" id="login">Zaloguj</button>
-                                        </div>
-                                         <br>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-footer text-center">
-                            <div class="small">
-                                <a href="{% url 'users-registration' %}" class="btn btn-dark btn-lg" role="button">Nie masz konta? Zarejestruj się</a>
-                                <a href="{% url 'password_reset' %}" class="btn btn-dark btn-lg" role="button">Reset hasła</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+                    </tr>
+                    <tr>
+                        <td style="font-size: large; vertical-align: middle">Email</td>
+                        <td>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: large; vertical-align: middle">Hasło</td>
+                        <td>{{ form.password }}</td>
+                    </tr>
+                </table>
+                    <button name="dodaj" class="btn btn-success btn-lg bg-gradient mb-4" style="font-size: large">Zaloguj</button>
+                    <a href="{% url 'users-registration' %}" class="btn btn-primary btn-lg bg-gradient mb-2 fs-3"  role="button">Nie masz konta? Zarejestruj się</a>
+                    <a href="{% url 'password_reset' %}" class="btn btn-warning btn-lg bg-gradient fs-3"  role="button">Reset hasła</a>
+                    {% csrf_token %}
+            </form>
         </div>
-     </div>
     </div>
+</div>
+</section>
 <div style="height:200vh"></div>
 {% endblock %}
