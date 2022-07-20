@@ -75,7 +75,7 @@
                                 <td>{{ user_form.mobile_nr }}</td>
                             </tr>
                         </table>
-                            <button type="reset" class="btn btn-dark btn-lg" style="font-size: large">Anuluj</button>
+                            <a href="{% url 'main' %}" class="btn btn-dark btn-lg" role="button" style="font-size: large">Anuluj</a>
                             <button type="submit" class="btn btn-success btn-lg bg-gradient" style="font-size: large">Zapisz zmiany</button>
                             <a href="{% url 'password_change' %}" class="btn btn-warning btn-lg bg-gradient" role="button" style="font-size: large">Zmień hasło</a>
                             {% csrf_token %}
