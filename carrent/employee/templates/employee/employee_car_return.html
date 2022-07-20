@@ -1,65 +1,65 @@
 {% extends 'employee/employee_base.html' %}
 
+{% block hero_bar %}
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+        <p class="top-hero-text" style="height: 80%; font-size: 6rem; color: green">Zwrot samochodu</p>
+        <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+    </section>
+{% endblock %}
+
 {% block section_one %}
-        <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
-            <p class="top-hero-text" style="height: 80%; font-size: 6rem; color: green">Zwrot samochodu</p>
-            <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
-        </section>
-<div class="container h-100 d-flex flex-column align-items-center text-dark text-center">
-    {% if filter.qs.count < 1 %}
-        <div style="height:15vh"></div>
-        <h2>Brak wyników do wyświetlenia</h2>
-        <div class="col-sm-2 d-grid mt-2">
-            <a href="{% url 'car_return' %}" class="btn btn-success btn-lg bg-gradient btn-block fs-2">Powrót</a>
-        </div>
-    {% else %}
-        <section class="car_view">
-            <section class="car_table">
-                <form method="get" class="d-grid gap-2 bg-dark bg-gradient p-2 shadow rounded">
-                    <table class="table table-responsive table-bordered table-hover table-striped table-dark ">
-                    <h2 style="text-align: center; color: white; font-size: x-large">Dostępne Filtry</h2>
-                        <tr>
-                            <td style="font-size: large">Klient</td>
-                            <td style="font-size: large">{{ filter.form.client }}</td>
-                        </tr>
-                    </table>
-                    <button style="font-size: large" name="dodaj" class="btn btn-success btn-lg bg-gradient">Filtruj</button>
-                </form>
+    <div class="container h-100 d-flex flex-column align-items-center text-dark text-center">
+        {% if filter.qs.count < 1 %}
+            <div style="height:15vh"></div>
+                <h2>Brak wyników do wyświetlenia</h2>
+            <div class="col-sm-2 d-grid mt-2">
+                <a href="{% url 'car_return' %}" class="btn btn-success btn-lg bg-gradient btn-block fs-2">Powrót</a>
+            </div>
+        {% else %}
+            <section class="car_view">
+                <section class="car_table">
+                    <form method="get" class="d-grid gap-2 bg-dark bg-gradient p-2 shadow rounded">
+                        <table class="table table-responsive table-bordered table-hover table-striped table-dark ">
+                        <h2 style="text-align: center; color: white; font-size: x-large">Dostępne Filtry</h2>
+                            <tr>
+                                <td style="font-size: large">Klient</td>
+                                <td style="font-size: large">{{ filter.form.client }}</td>
+                            </tr>
+                        </table>
+                        <button style="font-size: large" name="dodaj" class="btn btn-success btn-lg bg-gradient">Filtruj</button>
+                    </form>
+                </section>
             </section>
-        </section>
-        <div style="height:5vh"></div>
+            <div style="height:5vh"></div>
 
-    <table class="table table-responsive table-bordered table-hover table-striped table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Email klienta</th>
-            <th scope="col">Marka samochodu</th>
-            <th scope="col">Model samochodu</th>
-            <th scope="col">Numer rejestracyjny</th>
-            <th scope="col">Data wypożyczenia</th>
-            <th scope="col">Data zwrotu</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <body>
-
-        {%  for order in page_obj  %}
-             <tr class="table-secondary">
-                 <td> {{ order.client.email }} </td>
-                 <td> {{ order.car.brand }} </td>
-                 <td> {{ order.car.car_model }}  </td>
-                 <td> {{ order.car.plate_number }}  </td>
-                 <td> {{ order.start_date }}  </td>
-                 <td> {{ order.return_date }}  </td>
-                 <td> <a href ="{% url 'car_return_detail' order.id %}" class="btn btn-info text-nowrap">Szczegóły</a></td>
-             </tr>
-        {% endfor %}
-
-        </body>
-
-    </table>
-    {% include 'carrentapp/paginator.html' %}
-    {% endif %}
+            <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Email klienta</th>
+                        <th scope="col">Marka samochodu</th>
+                        <th scope="col">Model samochodu</th>
+                        <th scope="col">Numer rejestracyjny</th>
+                        <th scope="col">Data wypożyczenia</th>
+                        <th scope="col">Data zwrotu</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <body>
+                {%  for order in page_obj  %}
+                     <tr class="table-secondary">
+                         <td> {{ order.client.email }} </td>
+                         <td> {{ order.car.brand }} </td>
+                         <td> {{ order.car.car_model }}  </td>
+                         <td> {{ order.car.plate_number }}  </td>
+                         <td> {{ order.start_date }}  </td>
+                         <td> {{ order.return_date }}  </td>
+                         <td> <a href ="{% url 'car_return_detail' order.id %}" class="btn btn-info text-nowrap">Szczegóły</a></td>
+                     </tr>
+                {% endfor %}
+                </body>
+            </table>
+            {% include 'carrentapp/paginator.html' %}
+        {% endif %}
     <div style="height:150vh"></div>
-</div>
+    </div>
 {% endblock %}

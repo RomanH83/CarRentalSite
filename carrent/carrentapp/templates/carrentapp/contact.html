@@ -1,22 +1,21 @@
 {% extends 'carrentapp/base.html' %}
+
 {% block section_one %}
-<div class="container border border-dark shadow bg-dark bg-gradient">
-    <div class="row justify-content-md-center">
-        <div class="col-sm-4 mt-2 mb-2 text-light text-center">
-            <h3>Adres:</h3>
-            <p class="orange-color">CarRental Wypożyczalnia samochodów</p>
-            <p><i class="bi bi-geo-alt"></i> ul. Legnicka 55<br> 53-671 Wrocław</p>
-            <p><i class="bi bi-phone"></i>+48 123 456 789</p>
-            <p><i class="bi bi-at"></i> CarRental@gmail.com</p>
+    <div class="container border border-dark shadow bg-dark bg-gradient">
+        <div class="row justify-content-md-center">
+            <div class="col-sm-4 mt-2 mb-2 text-light text-center">
+                <h3>Adres:</h3>
+                <p class="orange-color">CarRental Wypożyczalnia samochodów</p>
+                <p><i class="bi bi-geo-alt"></i> ul. Legnicka 55<br> 53-671 Wrocław</p>
+                <p><i class="bi bi-phone"></i>+48 123 456 789</p>
+                <p><i class="bi bi-at"></i> CarRental@gmail.com</p>
+            </div>
+            <div id="map-container-google-1" class="z-depth-1-half map-container col-sm-8 mt-2 mb-2" style="height: 500px">
+                <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Wroc%C5%82aw%20Legnicka%2055&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        style="border:0">
+                </iframe>
+            </div>
         </div>
-
-
-    <div id="map-container-google-1" class="z-depth-1-half map-container col-sm-8 mt-2 mb-2" style="height: 500px">
-            <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Wroc%C5%82aw%20Legnicka%2055&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                    style="border:0">
-            </iframe>
     </div>
-</div>
-</div>
-<div style="height:100vh"></div>
+    <div style="height:100vh"></div>
 {% endblock %}

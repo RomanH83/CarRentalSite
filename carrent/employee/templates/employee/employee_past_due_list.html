@@ -8,43 +8,39 @@
     {% else %}
         <h2>Zaległe wypożyczenia</h2>
         <div style="height:5vh"></div>
-
-    <table class="table table-responsive table-bordered table-hover table-striped table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Email klienta</th>
-            <th scope="col">Marka samochodu</th>
-            <th scope="col">Model samochodu</th>
-            <th scope="col">Numer rejestracyjny</th>
-            <th scope="col">Data wypożyczenia</th>
-            <th scope="col">Data zwrotu</th>
-            <th scope="col">Problem rozwiązany</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <body>
-
-        {%  for order in page_obj  %}
-             {% if order.issue_resolved == True  %}
-             <tr class="table-success">
-             {% else %}
-             <tr class="table-danger">
-             {% endif %}
-                 <td> {{ order.client.email }}  </td>
-                 <td> {{ order.car.brand }} </td>
-                 <td> {{ order.car.car_model }}  </td>
-                 <td> {{ order.car.plate_number }}  </td>
-                 <td> {{ order.start_date }}  </td>
-                 <td> {{ order.return_date }}  </td>
-                 <td> {{ order.issue_resolved }}</td>
-                 <td> <a href ="{% url 'past_due_detail' order.id %}" class="btn btn-info text-nowrap">Szczegóły</a></td>
-             </tr>
-        {% endfor %}
-
-        </body>
-
-    </table>
-    {% include 'carrentapp/paginator.html' %}
+        <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Email klienta</th>
+                    <th scope="col">Marka samochodu</th>
+                    <th scope="col">Model samochodu</th>
+                    <th scope="col">Numer rejestracyjny</th>
+                    <th scope="col">Data wypożyczenia</th>
+                    <th scope="col">Data zwrotu</th>
+                    <th scope="col">Problem rozwiązany</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <body>
+            {%  for order in page_obj  %}
+                {% if order.issue_resolved == True  %}
+                    <tr class="table-success">
+                {% else %}
+                    <tr class="table-danger">
+                {% endif %}
+                        <td> {{ order.client.email }}  </td>
+                        <td> {{ order.car.brand }} </td>
+                        <td> {{ order.car.car_model }}  </td>
+                        <td> {{ order.car.plate_number }}  </td>
+                        <td> {{ order.start_date }}  </td>
+                        <td> {{ order.return_date }}  </td>
+                        <td> {{ order.issue_resolved }}</td>
+                        <td> <a href ="{% url 'past_due_detail' order.id %}" class="btn btn-info text-nowrap">Szczegóły</a></td>
+                    </tr>
+            {% endfor %}
+            </body>
+        </table>
+        {% include 'carrentapp/paginator.html' %}
     {% endif %}
     <div style="height:150vh"></div>
 </div>
