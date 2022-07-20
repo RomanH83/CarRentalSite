@@ -9,35 +9,34 @@
     {% else %}
         <h2>Historia Twoich zamówień</h2>
         <div style="height:5vh"></div>
-    <table class="table table-responsive table-bordered table-hover table-striped table-dark">
-        <thead>
-            <tr>
-                <th scope="col">Marka samochodu</th>
-                <th scope="col">Model samochodu</th>
-                <th scope="col">Numer rejestracyjny</th>
-                <th scope="col">Data wypożyczenia</th>
-                <th scope="col">Data zwrotu</th>
-                <th scope="col">Koszt wypożyczenia</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <body>
-            {%  for order in page_obj  %}
-               <tr class="table-primary">
-                    <td> {{ order.car.brand }}  </td>
-                    <td> {{ order.car.car_model }}  </td>
-                    <td> {{ order.car.plate_number }}  </td>
-                    <td> {{ order.start_date }}  </td>
-                    <td> {{ order.return_date }}  </td>
-                    <td> {{ order.rent_cost }}  </td>
-                    <td> <a href ="{% url 'order_detail' order.id %}" class="btn btn-info text-nowrap">Szczegóły</a></td>
-               </tr>
-            {% endfor %}
-        </body>
-    </table>
+        <table class="table table-responsive table-bordered table-hover table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Marka samochodu</th>
+                    <th scope="col">Model samochodu</th>
+                    <th scope="col">Numer rejestracyjny</th>
+                    <th scope="col">Data wypożyczenia</th>
+                    <th scope="col">Data zwrotu</th>
+                    <th scope="col">Koszt wypożyczenia</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <body>
+                {%  for order in page_obj  %}
+                   <tr class="table-primary">
+                        <td> {{ order.car.brand }}  </td>
+                        <td> {{ order.car.car_model }}  </td>
+                        <td> {{ order.car.plate_number }}  </td>
+                        <td> {{ order.start_date }}  </td>
+                        <td> {{ order.return_date }}  </td>
+                        <td> {{ order.rent_cost }}  </td>
+                        <td> <a href ="{% url 'order_detail' order.id %}" class="btn btn-info text-nowrap">Szczegóły</a></td>
+                   </tr>
+                {% endfor %}
+            </body>
+        </table>
     {% include 'carrentapp/paginator.html' %}
     {% endif %}
 </div>
 <div style="height:150vh"></div>
-</div>
 {% endblock %}

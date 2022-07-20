@@ -1,11 +1,13 @@
 {% extends 'carrentapp/base.html' %}
-{% load static %}
+
+{% block hero_bar %}
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+        <p class="top-hero-text text-light" style="font-size: 8rem; height: 80%">{{ car.brand }} {{ car.car_model }}</p>
+        <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+    </section>
+{% endblock %}
 
 {% block section_one %}
-    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
-    <p class="top-hero-text text-light" style="font-size: 8rem; height: 80%">{{ car.brand }} {{ car.car_model }}</p>
-    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
-    </section>
     <div class="container border border-dark shadow bg-dark bg-gradient">
         <div class="row justify-content-md-center">
             <div class="col-sm-4 mt-2 mb-2">
@@ -42,9 +44,5 @@
             </div>
         </div>
     </div>
-
-
-
-
-<div style="height:100vh"></div>
+    <div style="height:100vh"></div>
 {% endblock %}

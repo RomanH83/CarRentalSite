@@ -1,13 +1,15 @@
 {% extends 'carrentapp/base.html' %}
+
+{% block hero_bar %}
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+        <p class="top-hero-text text-light mb-0" style="font-size: 3rem; height: 40%; text-align: center">szczegóły Twojego zamówienia</p>
+        <p class="top-hero-text text-light mt-0" style="font-size: 5rem; height: 40%; text-align: center">{{ object.car.brand.brand_name }} {{ object.car.car_model }}</p>
+        <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+    </section>
+{% endblock %}
+
 {% block section_one %}
-
-<section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
-    <p class="top-hero-text text-light mb-0" style="font-size: 3rem; height: 40%; text-align: center">szczegóły Twojego zamówienia</p>
-    <p class="top-hero-text text-light mt-0" style="font-size: 5rem; height: 40%; text-align: center">{{ object.car.brand.brand_name }} {{ object.car.car_model }}</p>
-    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
-</section>
-
-<div class="container border border-dark shadow bg-dark bg-gradient">
+    <div class="container border border-dark shadow bg-dark bg-gradient">
         <div class="row justify-content-md-center">
             <div class="col-sm-4 mt-2 mb-2">
                 <table class="table table-responsive table-bordered table-hover table-striped table-dark">
@@ -57,13 +59,11 @@
                     <a href="{% url 'actual_order' %}" class="btn btn-dark btn-lg" style="font-size: large">Cofnij do aktuanych zamówien</a>
                     <a href ="{% url 'order_update' order.id %}" class="btn btn-success btn-lg" style="font-size: large">Przedłuż najem</a>
                 {% endif %}
-                    {% csrf_token %}
             </div>
             <div class="col-sm-8 mb-2 mt-2">
                 <img class="img-fluid rounded float-end" src="{{ object.car.car_image.url }}" alt="{{ car.color }} samochod">
             </div>
         </div>
     </div>
-<div style="height:100vh"></div>
-<div style="visibility: hidden">{{ form }}</div>
+    <div style="height:100vh"></div>
 {% endblock %}

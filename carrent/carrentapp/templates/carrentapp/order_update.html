@@ -1,44 +1,45 @@
 {% extends 'carrentapp/base.html' %}
-{% load static %}
-{% block section_one %}
 
-<section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
-    <p class="top-hero-text text-light mb-0" style="font-size: 5rem; height: 40%; text-align: center">Zmiana terminu</p>
-    <p class="top-hero-text text-light mt-0" style="font-size: 3rem; height: 40%; text-align: center">{{ object.car.brand.brand_name }} {{ object.car.car_model }}</p>
-    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
-</section>
-
-<section class="car_view" style="align-items: start">
-    <section class="car_table">
-        <form method="POST" novalidate class="d-grid gap-0 bg-dark bg-gradient p-2 rounded">
-            <table class="table table-responsive table-bordered table-hover table-dark">
-                {% if order.is_past %}
-                    <p style="font-size:  3rem; color: red; text-align: center">Nie powinineś się tu znaleźć {{ request.user.username }}!<br>Edycja minionych zamówień nie jest dozwolona</p>
-                {% else %}
-                <p style="color: lightseagreen; margin-bottom: 0px; text-align: center">Proszę wybrać nową datę odbioru i zwrotu samochodu</p>
-                <p style="color: red; text-align: center">{{ view.kwargs.msg }}</p>
-                <tr>
-                    <td style="font-size: large; vertical-align: middle">Data odbioru</td>
-                    <td>{{ form.start_date }}</td>
-                </tr>
-                <tr>
-                    <td style="font-size: large; vertical-align: middle">Data zwrotu</td>
-                    <td>{{ form.return_date }}</td>
-                </tr>
-                {% endif %}
-            </table>
-            {% if order.is_future %}
-                <a href="{% url 'future_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
-                <button name="dodaj" class="btn btn-success btn-lg" style="font-size: large">Zatwierdź nowy termin</button>
-            {% elif order.is_past %}
-                <a href="{% url 'history_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
-            {% else %}
-                <a href="{% url 'actual_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
-                <button name="dodaj" class="btn btn-success btn-lg" style="font-size: large ">Zatwierdź nowy termin</button>
-            {% endif %}
-            {% csrf_token %}
-        </form>
+{% block hero_bar %}
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+        <p class="top-hero-text text-light mb-0" style="font-size: 5rem; height: 40%; text-align: center">Zmiana terminu</p>
+        <p class="top-hero-text text-light mt-0" style="font-size: 3rem; height: 40%; text-align: center">{{ object.car.brand.brand_name }} {{ object.car.car_model }}</p>
+        <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
     </section>
-</section>
-<div style="height:100vh"></div>
+{% endblock %}
+
+{% block section_one %}
+    <section class="car_view" style="align-items: start">
+        <section class="car_table">
+            <form method="POST" novalidate class="d-grid gap-0 bg-dark bg-gradient p-2 rounded">
+                <table class="table table-responsive table-bordered table-hover table-dark">
+                    {% if order.is_past %}
+                        <p style="font-size:  3rem; color: red; text-align: center">Nie powinineś się tu znaleźć {{ request.user.username }}!<br>Edycja minionych zamówień nie jest dozwolona</p>
+                    {% else %}
+                        <p style="color: lightseagreen; margin-bottom: 0px; text-align: center">Proszę wybrać nową datę odbioru i zwrotu samochodu</p>
+                        <p style="color: red; text-align: center">{{ view.kwargs.msg }}</p>
+                    <tr>
+                        <td style="font-size: large; vertical-align: middle">Data odbioru</td>
+                        <td>{{ form.start_date }}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: large; vertical-align: middle">Data zwrotu</td>
+                        <td>{{ form.return_date }}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+                {% if order.is_future %}
+                    <a href="{% url 'future_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
+                    <button name="dodaj" class="btn btn-success btn-lg" style="font-size: large">Zatwierdź nowy termin</button>
+                {% elif order.is_past %}
+                    <a href="{% url 'history_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
+                {% else %}
+                    <a href="{% url 'actual_order' %}" class="btn btn-dark btn-lg">Cofnij</a>
+                    <button name="dodaj" class="btn btn-success btn-lg" style="font-size: large ">Zatwierdź nowy termin</button>
+                {% endif %}
+                {% csrf_token %}
+            </form>
+        </section>
+    </section>
+    <div style="height:100vh"></div>
 {% endblock %}

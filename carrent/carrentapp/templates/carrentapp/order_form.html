@@ -1,13 +1,14 @@
 {% extends 'carrentapp/base.html' %}
-{% load static %}
+
+{% block hero_bar %}
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+        <p class="top-hero-text text-light" style="font-size: 5rem; height: 80%; text-align: center">Wybierz datę</p>
+        <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+    </section>
+{%  endblock %}
+
 {% block section_one %}
-
-<section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
-    <p class="top-hero-text text-light" style="font-size: 5rem; height: 80%; text-align: center">Wybierz datę</p>
-    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
-</section>
-
-<section class="car_view" style="align-items: start">
+    <section class="car_view" style="align-items: start">
         <form method="POST" novalidate class="d-grid gap-0 bg-dark bg-gradient p-2 rounded">
             <table class="table table-responsive table-bordered table-hover table-dark">
                 <p style="color: lightseagreen; margin-bottom: 0px; text-align: center">Proszę wybrać datę odbioru i zwrotu samochodu</p>
@@ -24,6 +25,6 @@
             <button name="dodaj" class="btn btn-success btn-lg bg-gradient" style="font-size: large">Dodaj</button>
             {% csrf_token %}
         </form>
-</section>
-<div style="height:100vh"></div>
+    </section>
+    <div style="height:100vh"></div>
 {% endblock %}

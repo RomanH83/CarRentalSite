@@ -1,17 +1,19 @@
 {% extends 'carrentapp/base.html' %}
+
+{% block hero_bar %}
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+        <p class="top-hero-text text-light mb-0" style="font-size: 5rem; height: 40%; text-align: center">Na pewno usunąć?</p>
+        <p class="top-hero-text text-light mt-0" style="font-size: 3rem; height: 40%; text-align: center">{{ object.car.brand.brand_name }} {{ object.car.car_model }}</p>
+        <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+    </section>
+{% endblock %}
+
 {% block section_one %}
-
-<section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
-    <p class="top-hero-text text-light mb-0" style="font-size: 5rem; height: 40%; text-align: center">Na pewno usunąć?</p>
-    <p class="top-hero-text text-light mt-0" style="font-size: 3rem; height: 40%; text-align: center">{{ object.car.brand.brand_name }} {{ object.car.car_model }}</p>
-    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
-</section>
-
-<div class="container border border-dark shadow bg-dark bg-gradient">
+    <div class="container border border-dark shadow bg-dark bg-gradient">
         <div class="row justify-content-md-center">
             <div class="col-sm-4 mt-2 mb-2">
                 <table class="table table-responsive table-bordered table-hover table-striped table-dark">
-                                        <tr>
+                    <tr>
                         <td>Moc KM</td>
                         <td>{{ object.car.engine_power }}</td>
                     </tr>
@@ -49,19 +51,19 @@
                     </tr>
                 </table>
                 <form method="post">
-                {% if object.is_past %}
-                <a href="{% url 'history_order' %}" class="btn btn-dark btn-lg">Cofnij do historii zamówien</a>
-                <input type="submit" value="Potwierdź usunięcie" class="btn btn-danger btn-lg disabled">
-                <p style="color: red; font-size: 2rem">Usuwanie minionych zamówień jest zabronione </p>
-                {% elif object.is_future %}
-                    <a href="{% url 'future_order' %}" class="btn btn-dark btn-lg">Cofnij do zaplanowanych zamówien</a>
-                    <input type="submit" value="Potwierdź usunięcie" class="btn btn-danger btn-lg">
-                {% else %}
-                    <a href="{% url 'actual_order' %}" class="btn btn-dark btn-lg">Cofnij do aktuanych zamówien</a>
-                    <input type="submit" value="Potwierdź usunięcie" class="btn btn-danger btn-lg disabled">
-                <p style="color: red; font-size: 2rem">Usuwanie rozpoczętych zamówień jest zabronione </p>
-                {% endif %}
-                {% csrf_token %}
+                    {% if object.is_past %}
+                        <a href="{% url 'history_order' %}" class="btn btn-dark btn-lg">Cofnij do historii zamówien</a>
+                        <input type="submit" value="Potwierdź usunięcie" class="btn btn-danger btn-lg disabled">
+                        <p style="color: red; font-size: 2rem">Usuwanie minionych zamówień jest zabronione </p>
+                    {% elif object.is_future %}
+                        <a href="{% url 'future_order' %}" class="btn btn-dark btn-lg">Cofnij do zaplanowanych zamówien</a>
+                        <input type="submit" value="Potwierdź usunięcie" class="btn btn-danger btn-lg">
+                    {% else %}
+                        <a href="{% url 'actual_order' %}" class="btn btn-dark btn-lg">Cofnij do aktuanych zamówien</a>
+                        <input type="submit" value="Potwierdź usunięcie" class="btn btn-danger btn-lg disabled">
+                        <p style="color: red; font-size: 2rem">Usuwanie rozpoczętych zamówień jest zabronione </p>
+                    {% endif %}
+                    {% csrf_token %}
                 </form>
             </div>
             <div class="col-sm-8 mb-2 mt-2">

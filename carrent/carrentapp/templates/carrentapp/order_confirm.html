@@ -1,13 +1,14 @@
 {% extends 'carrentapp/base.html' %}
-{% load static %}
+
+{% block hero_bar %}
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+        <p class="top-hero-text text-light mb-0" style="font-size: 3rem; height: 40%; text-align: center">Czy chcesz wypożyczyć ten samochód?</p>
+        <p class="top-hero-text text-light mt-0" style="font-size: 5rem; height: 40%; text-align: center">{{ request.session.car_brand }} {{ request.session.car_model }}</p>
+        <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+    </section>
+{% endblock %}
 
 {% block section_one %}
-    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
-    <p class="top-hero-text text-light mb-0" style="font-size: 3rem; height: 40%; text-align: center">Czy chcesz wypożyczyć ten samochód?</p>
-    <p class="top-hero-text text-light mt-0" style="font-size: 5rem; height: 40%; text-align: center">{{ request.session.car_brand }} {{ request.session.car_model }}</p>
-    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
-    </section>
-
     <div class="container border border-dark shadow bg-dark bg-gradient">
         <div class="row justify-content-md-center">
             <div class="col-sm-4 mt-2 mb-2">

@@ -1,95 +1,96 @@
 {% extends "carrentapp/base.html" %}
 {% block title %}Profil użytkownika{% endblock title %}
+
+{% block hero_bar %}
+    <section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
+        <p class="top-hero-text text-light" style="font-size: 5rem; height: 80%">Edytuj dane profilowe</p>
+        <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
+    </section>
+{% endblock %}
+
 {% block section_one%}
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </symbol>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+    </svg>
 
-<section class="top-hero projects-hero" xmlns="http://www.w3.org/1999/html">
-    <p class="top-hero-text text-light" style="font-size: 5rem; height: 80%">Edytuj dane profilowe</p>
-    <div class="hero-shadow bg-dark bg-gradient" style="height: 80%"></div>
-</section>
+    {% if user_form.errors %}
+        <section class="car_view">
+            <section class="car_table">
+                    <div class="alert alert-dismissible gap-2 bg-dark bg-gradient shadow rounded mb-5 fade show" style="padding-left: 30px">
+                    <button type="button" class="btn-close btn-close-white" data-dismiss="alert" aria-label="Close"></button>
+                    <table class="table fs-2 table-responsive table-bordered table-hover table-striped table-danger mb-0">
+                        {% for value in user_form.errors.values %}
+                        <tr>
+                            <td>
+                                <svg class="bi flex-shrink-0 me-2 text-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            </td>
+                            <td>
+                                <strong class="fs-2 text-danger">{{ value.as_text|cut:"* "  }}</strong>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-    </symbol>
-    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-    </symbol>
-    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-    </symbol>
-</svg>
+                    </div>
+            </section>
+        </section>
+    {% endif %}
 
-{% if user_form.errors %}
     <section class="car_view">
         <section class="car_table">
-                <div class="alert alert-dismissible gap-2 bg-dark bg-gradient shadow rounded mb-5 fade show" style="padding-left: 30px">
-                <button type="button" class="btn-close btn-close-white" data-dismiss="alert" aria-label="Close"></button>
-                <table class="table fs-2 table-responsive table-bordered table-hover table-striped table-danger mb-0">
-                    {% for value in user_form.errors.values %}
-                    <tr>
-                        <td>
-                            <svg class="bi flex-shrink-0 me-2 text-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                        </td>
-                        <td>
-                            <strong class="fs-2 text-danger">{{ value.as_text|cut:"* "  }}</strong>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
-
-                </div>
+                    <form method="post" enctype="multipart/form-data" class="d-grid gap-2 bg-dark bg-gradient p-2 shadow rounded">
+                        <table class="table fs-2 table-responsive table-bordered table-hover table-striped table-dark">
+                            <tr>
+                                <td>Email:</td>
+                                <td>{{ user_form.email }}</td>
+                            </tr>
+                            <tr>
+                                <td>Użytkownik:</td>
+                                <td style="font-size: large">{{ user_form.username }}</td>
+                            </tr>
+                            <tr>
+                                <td>Imię:</td>
+                                <td>{{ user_form.first_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Nazwisko:</td>
+                                <td>{{ user_form.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Data urodzenia:</td>
+                                <td>{{ user_form.birthdate }}</td>
+                            </tr>
+                            <tr>
+                                <td>Miasto:</td>
+                                <td>{{ user_form.addr_city }}</td>
+                            </tr>
+                            <tr>
+                                <td>Ulica:</td>
+                                <td>{{ user_form.addr_street }}</td>
+                            </tr>
+                            <tr>
+                                <td>Kod pocztowy:</td>
+                                <td>{{ user_form.addr_post_code }}</td>
+                            </tr>
+                            <tr>
+                                <td>Numer telefonu:</td>
+                                <td>{{ user_form.mobile_nr }}</td>
+                            </tr>
+                        </table>
+                            <button type="reset" class="btn btn-dark btn-lg" style="font-size: large">Anuluj</button>
+                            <button type="submit" class="btn btn-success btn-lg bg-gradient" style="font-size: large">Zapisz zmiany</button>
+                            <a href="{% url 'password_change' %}" class="btn btn-warning btn-lg bg-gradient" role="button" style="font-size: large">Zmień hasło</a>
+                            {% csrf_token %}
+                    </form>
         </section>
     </section>
-{% endif %}
-
-<section class="car_view">
-    <section class="car_table">
-                <form method="post" enctype="multipart/form-data" class="d-grid gap-2 bg-dark bg-gradient p-2 shadow rounded">
-                    <table class="table fs-2 table-responsive table-bordered table-hover table-striped table-dark">
-                        <tr>
-                            <td>Email:</td>
-                            <td>{{ user_form.email }}</td>
-                        </tr>
-                        <tr>
-                            <td>Użytkownik:</td>
-                            <td style="font-size: large">{{ user_form.username }}</td>
-                        </tr>
-                        <tr>
-                            <td>Imię:</td>
-                            <td>{{ user_form.first_name }}</td>
-                        </tr>
-                        <tr>
-                            <td>Nazwisko:</td>
-                            <td>{{ user_form.last_name }}</td>
-                        </tr>
-                        <tr>
-                            <td>Data urodzenia:</td>
-                            <td>{{ user_form.birthdate }}</td>
-                        </tr>
-                        <tr>
-                            <td>Miasto:</td>
-                            <td>{{ user_form.addr_city }}</td>
-                        </tr>
-                        <tr>
-                            <td>Ulica:</td>
-                            <td>{{ user_form.addr_street }}</td>
-                        </tr>
-                        <tr>
-                            <td>Kod pocztowy:</td>
-                            <td>{{ user_form.addr_post_code }}</td>
-                        </tr>
-                        <tr>
-                            <td>Numer telefonu:</td>
-                            <td>{{ user_form.mobile_nr }}</td>
-                        </tr>
-                    </table>
-                        <button type="reset" class="btn btn-dark btn-lg" style="font-size: large">Anuluj</button>
-                        <button type="submit" class="btn btn-success btn-lg bg-gradient" style="font-size: large">Zapisz zmiany</button>
-                        <a href="{% url 'password_change' %}" class="btn btn-warning btn-lg bg-gradient" role="button" style="font-size: large">Zmień hasło</a>
-                        {% csrf_token %}
-                </form>
-    </section>
-</section>
-
     <div style="height:100vh"></div>
 {% endblock %}
